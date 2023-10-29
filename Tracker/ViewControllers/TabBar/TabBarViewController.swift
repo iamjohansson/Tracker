@@ -8,7 +8,6 @@ final class TabBarViewController: UITabBarController {
     }
     
     private func setupBarItems() {
-        
         tabBar.backgroundColor = .White
         tabBar.tintColor = .Blue
         tabBar.barTintColor = .Gray
