@@ -23,6 +23,9 @@ final class TrackerViewController: UIViewController {
         return plusButton
     }()
     
+    var categories: [TrackerCategory] = []
+    var completedTrackers: [TrackerRecord] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .White

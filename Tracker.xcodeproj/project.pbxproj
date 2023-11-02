@@ -16,6 +16,10 @@
 		84C193CD2AEEABF500DD8B62 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193CC2AEEABF500DD8B62 /* UIColor + Extension.swift */; };
 		84C193D12AEEAE8D00DD8B62 /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193D02AEEAE8D00DD8B62 /* TrackerViewController.swift */; };
 		84C193D42AEEAFF700DD8B62 /* StatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193D32AEEAFF700DD8B62 /* StatisticViewController.swift */; };
+		84C1941B2AF2C82700DD8B62 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1941A2AF2C82700DD8B62 /* Tracker.swift */; };
+		84C1941D2AF2CA4400DD8B62 /* DaysOfTheWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1941C2AF2CA4400DD8B62 /* DaysOfTheWeek.swift */; };
+		84C1941F2AF2CCE100DD8B62 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1941E2AF2CCE100DD8B62 /* TrackerCategory.swift */; };
+		84C194212AF2CDED00DD8B62 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C194202AF2CDED00DD8B62 /* TrackerRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		84C193CC2AEEABF500DD8B62 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		84C193D02AEEAE8D00DD8B62 /* TrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerViewController.swift; sourceTree = "<group>"; };
 		84C193D32AEEAFF700DD8B62 /* StatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewController.swift; sourceTree = "<group>"; };
+		84C1941A2AF2C82700DD8B62 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		84C1941C2AF2CA4400DD8B62 /* DaysOfTheWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysOfTheWeek.swift; sourceTree = "<group>"; };
+		84C1941E2AF2CCE100DD8B62 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
+		84C194202AF2CDED00DD8B62 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +93,7 @@
 		84C193CA2AEEAAFB00DD8B62 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				84C194192AF2C80000DD8B62 /* Models */,
 				84C193CE2AEEAE0C00DD8B62 /* TabBar */,
 				84C193CF2AEEAE2A00DD8B62 /* Tracker */,
 				84C193D22AEEAFC000DD8B62 /* Statistic */,
@@ -122,6 +131,17 @@
 				84C193D32AEEAFF700DD8B62 /* StatisticViewController.swift */,
 			);
 			path = Statistic;
+			sourceTree = "<group>";
+		};
+		84C194192AF2C80000DD8B62 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84C1941A2AF2C82700DD8B62 /* Tracker.swift */,
+				84C1941E2AF2CCE100DD8B62 /* TrackerCategory.swift */,
+				84C194202AF2CDED00DD8B62 /* TrackerRecord.swift */,
+				84C1941C2AF2CA4400DD8B62 /* DaysOfTheWeek.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,12 +215,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C1941F2AF2CCE100DD8B62 /* TrackerCategory.swift in Sources */,
 				84C193D12AEEAE8D00DD8B62 /* TrackerViewController.swift in Sources */,
+				84C1941D2AF2CA4400DD8B62 /* DaysOfTheWeek.swift in Sources */,
 				84C193B92AEE64A100DD8B62 /* TabBarViewController.swift in Sources */,
 				84C193CD2AEEABF500DD8B62 /* UIColor + Extension.swift in Sources */,
+				84C194212AF2CDED00DD8B62 /* TrackerRecord.swift in Sources */,
 				84C193D42AEEAFF700DD8B62 /* StatisticViewController.swift in Sources */,
 				84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */,
 				84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */,
+				84C1941B2AF2C82700DD8B62 /* Tracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
