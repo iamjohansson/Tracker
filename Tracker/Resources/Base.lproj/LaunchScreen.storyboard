@@ -37,7 +37,7 @@
     <resources>
         <image name="screenLogo" width="91" height="94"/>
         <namedColor name="Blue">
-            <color red="0.21758601069450378" green="0.4479057788848877" blue="0.90449315309524536" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.21799999475479126" green="0.44800001382827759" blue="0.90399998426437378" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

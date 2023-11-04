@@ -1,6 +1,6 @@
 import Foundation
 
-enum DaysOfTheWeek: String {
+enum WeekDays: String {
     
     case monday = "Понедельник"
     case tuesday = "Вторник"
