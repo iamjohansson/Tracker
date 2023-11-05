@@ -7,10 +7,7 @@ protocol SettingTrackerViewControllerDelegate: AnyObject {
 final class SettingTrackerViewController: UIViewController {
     
     private lazy var nameTracker: UITextField = {
-        let nameTracker = UITextField()
-        nameTracker.translatesAutoresizingMaskIntoConstraints = false
-        nameTracker.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        nameTracker.placeholder = "Введите название трекера"
+        let nameTracker = TextFieldSetting(placeholder: "Введите название трекера")
         nameTracker.addTarget(self, action: #selector(didChangeTextOnNameTracker), for: .editingChanged)
         return nameTracker
     }()
@@ -66,6 +63,7 @@ final class SettingTrackerViewController: UIViewController {
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.spacing = 8
         buttonStack.axis = .horizontal
+        buttonStack.distribution = .fillEqually
         return buttonStack
     }()
     
@@ -93,9 +91,11 @@ final class SettingTrackerViewController: UIViewController {
         didSet {
             checkButtonValidation()
             if limitMessageVisible {
-                limitMessage.isHidden = true
+                messageHeightConstraint?.constant = 22
+                optionsTopConstraint?.constant = 32
             } else {
-                limitMessage.isHidden = false
+                messageHeightConstraint?.constant = 0
+                optionsTopConstraint?.constant = 16
             }
         }
     }
@@ -114,6 +114,8 @@ final class SettingTrackerViewController: UIViewController {
     }
     
     private let parametres = ["Категория", "Расписание"]
+    private var messageHeightConstraint: NSLayoutConstraint?
+    private var optionsTopConstraint: NSLayoutConstraint?
     
     
     init(version: CreatingTrackerViewController.TrackerVersion, data: Tracker.Track = Tracker.Track()) {
@@ -129,6 +131,7 @@ final class SettingTrackerViewController: UIViewController {
         }
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -137,6 +140,7 @@ final class SettingTrackerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .White
         optionsTableView.dataSource = self
+        initHideKeyboard()
         addSubViews()
         setTitle()
         applyConstraint()
@@ -155,6 +159,11 @@ final class SettingTrackerViewController: UIViewController {
     
     private func applyConstraint() {
         
+        messageHeightConstraint = limitMessage.heightAnchor.constraint(equalToConstant: 0)
+        messageHeightConstraint?.isActive = true
+        optionsTopConstraint = optionsTableView.topAnchor.constraint(equalTo: limitMessage.bottomAnchor, constant: 16)
+        optionsTopConstraint?.isActive = true
+        
         NSLayoutConstraint.activate([
             nameTracker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             nameTracker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -162,7 +171,6 @@ final class SettingTrackerViewController: UIViewController {
             nameTracker.heightAnchor.constraint(equalToConstant: 75),
             limitMessage.centerXAnchor.constraint(equalTo: nameTracker.centerXAnchor),
             limitMessage.topAnchor.constraint(equalTo: nameTracker.bottomAnchor, constant: 8),
-            optionsTableView.topAnchor.constraint(equalTo: limitMessage.bottomAnchor, constant: 24),
             optionsTableView.heightAnchor.constraint(equalToConstant: title == "Новая привычка" ? 75 : 150),
             optionsTableView.leadingAnchor.constraint(equalTo: nameTracker.leadingAnchor),
             optionsTableView.trailingAnchor.constraint(equalTo: nameTracker.trailingAnchor),
@@ -185,8 +193,14 @@ final class SettingTrackerViewController: UIViewController {
 }
 
 extension SettingTrackerViewController {
-    @objc private func didChangeTextOnNameTracker() {
-        
+    @objc private func didChangeTextOnNameTracker(_ sender: UITextField) {
+        guard let text = sender.text else { return }
+        data.name = text
+        if text.count > 38 {
+            limitMessageVisible = true
+        } else {
+            limitMessageVisible = false
+        }
     }
     
     @objc private func didTapCancelButton() {
@@ -195,6 +209,10 @@ extension SettingTrackerViewController {
     
     @objc private func didTapCreateButton() {
         
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
     private func checkButtonValidation() {
@@ -212,6 +230,11 @@ extension SettingTrackerViewController {
             buttonIsEnable = false
         }
         buttonIsEnable = true
+    }
+    
+    func initHideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tap)
     }
 }
 
