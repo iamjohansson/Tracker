@@ -28,6 +28,7 @@ final class SettingTrackerViewController: UIViewController {
         let optionsTable = UITableView()
         optionsTable.translatesAutoresizingMaskIntoConstraints = false
         optionsTable.separatorStyle = .none
+        optionsTable.register(SettingTableCell.self, forCellReuseIdentifier: SettingTableCell.identifier)
         return optionsTable
     }()
     
@@ -61,7 +62,7 @@ final class SettingTrackerViewController: UIViewController {
     }()
     
     private let buttonStack: UIStackView = {
-       let buttonStack = UIStackView()
+        let buttonStack = UIStackView()
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.spacing = 8
         buttonStack.axis = .horizontal
@@ -70,10 +71,62 @@ final class SettingTrackerViewController: UIViewController {
     
     weak var delegate: SettingTrackerViewControllerDelegate?
     private let version: CreatingTrackerViewController.TrackerVersion
+    private var data: Tracker.Track {
+        didSet {
+            checkButtonValidation()
+        }
+    }
     
-    init(version: CreatingTrackerViewController.TrackerVersion) {
+    private var buttonIsEnable = false {
+        willSet {
+            if newValue {
+                createButton.backgroundColor = .Black
+                createButton.isEnabled = true
+            } else {
+                createButton.backgroundColor = .Gray
+                createButton.isEnabled = false
+            }
+        }
+    }
+    
+    private var limitMessageVisible = false {
+        didSet {
+            checkButtonValidation()
+            if limitMessageVisible {
+                limitMessage.isHidden = true
+            } else {
+                limitMessage.isHidden = false
+            }
+        }
+    }
+    
+    private var skedString: String? {
+        guard let sked = data.sked else { return nil }
+        if sked.count == 7 { return "Каждый день" }
+        let short: [String] = sked.map { $0.shortcut }
+        return short.joined(separator: ", ")
+    }
+    
+    private var category: String? = TrackerCategory.defaultValue[0].name {
+        didSet {
+            checkButtonValidation()
+        }
+    }
+    
+    private let parametres = ["Категория", "Расписание"]
+    
+    
+    init(version: CreatingTrackerViewController.TrackerVersion, data: Tracker.Track = Tracker.Track()) {
         self.version = version
+        self.data = data
         super.init(nibName: nil, bundle: nil)
+        
+        switch version {
+        case .habit:
+            self.data.sked = []
+        case .event:
+            self.data.sked = nil
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -84,9 +137,11 @@ final class SettingTrackerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .White
         optionsTableView.dataSource = self
-        applyConstraint()
+        addSubViews()
         setTitle()
         applyConstraint()
+        
+        checkButtonValidation()
     }
     
     private func addSubViews() {
@@ -141,16 +196,43 @@ extension SettingTrackerViewController {
     @objc private func didTapCreateButton() {
         
     }
+    
+    private func checkButtonValidation() {
+        if data.name.count == 0 {
+            buttonIsEnable = false
+        }
+        if limitMessageVisible {
+            buttonIsEnable = false
+        }
+        if category == nil {
+            buttonIsEnable = false
+        }
+        if let sked = data.sked,
+            sked.isEmpty {
+            buttonIsEnable = false
+        }
+        buttonIsEnable = true
+    }
 }
 
 extension SettingTrackerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        data.sked == nil ? 1 : 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableCell.identifier) as? SettingTableCell else { return UITableViewCell() }
+        
+        var description: String? = nil
+        
+        if data.sked == nil {
+            description = category
+        } else {
+            description = indexPath.row == 0 ? category : skedString
+        }
+        cell.configure(name: parametres[indexPath.row], description: description)
+        return cell
     }
     
 }

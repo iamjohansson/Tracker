@@ -72,10 +72,12 @@ final class CreatingTrackerViewController: UIViewController {
 
 private extension CreatingTrackerViewController {
     @objc func didTapHabitButton() {
+        title = "Новая привычка"
         delegate?.didCreateTracker(with: .habit)
     }
     
     @objc func didTapEventButton() {
+        title = "Новое нерегулярное событие"
         delegate?.didCreateTracker(with: .event)
     }
 }
