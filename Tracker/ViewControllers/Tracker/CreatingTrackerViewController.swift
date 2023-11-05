@@ -1,5 +1,9 @@
 import UIKit
 
+protocol CreatingTrackerViewControllerDelegate: AnyObject {
+    func didCreateTracker(with: CreatingTrackerViewController.TrackerVersion)
+}
+
 final class CreatingTrackerViewController: UIViewController {
     
     private lazy var habitButton: UIButton = {
@@ -9,7 +13,7 @@ final class CreatingTrackerViewController: UIViewController {
         habitButton.setTitle("Привычка", for: .normal)
         habitButton.setTitleColor(.White, for: .normal)
         habitButton.backgroundColor = .Black
-        habitButton.layer.cornerRadius = habitButton.frame.size.height / 2
+        habitButton.layer.cornerRadius = 16
         habitButton.addTarget(self, action: #selector(didTapHabitButton), for: .touchUpInside)
         return habitButton
     }()
@@ -21,7 +25,7 @@ final class CreatingTrackerViewController: UIViewController {
         eventButton.setTitle("Нерегулярное событие", for: .normal) //в фигме не по русски написано как-то)
         eventButton.setTitleColor(.White, for: .normal)
         eventButton.backgroundColor = .Black
-        eventButton.layer.cornerRadius = eventButton.frame.size.height / 2
+        eventButton.layer.cornerRadius = 16
         eventButton.addTarget(self, action: #selector(didTapEventButton), for: .touchUpInside)
         return eventButton
     }()
@@ -33,6 +37,8 @@ final class CreatingTrackerViewController: UIViewController {
         buttonStack.axis = .vertical
         return buttonStack
     }()
+    
+    weak var delegate: CreatingTrackerViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,14 +64,18 @@ final class CreatingTrackerViewController: UIViewController {
             buttonStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
     }
+    
+    enum TrackerVersion {
+        case habit, event
+    }
 }
 
 private extension CreatingTrackerViewController {
     @objc func didTapHabitButton() {
-        
+        delegate?.didCreateTracker(with: .habit)
     }
     
     @objc func didTapEventButton() {
-        
+        delegate?.didCreateTracker(with: .event)
     }
 }

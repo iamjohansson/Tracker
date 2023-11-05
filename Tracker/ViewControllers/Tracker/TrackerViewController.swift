@@ -99,7 +99,10 @@ final class TrackerViewController: UIViewController {
 
 extension TrackerViewController {
     @objc private func didTapPlusButton() {
-        return
+        let createTrack = CreatingTrackerViewController()
+        createTrack.delegate = self
+        let navigationController = UINavigationController(rootViewController: createTrack)
+        present(navigationController, animated: true)
     }
     
     @objc private func didChangeDate(_ sender: UIDatePicker) {
@@ -120,5 +123,17 @@ extension TrackerViewController: UICollectionViewDataSource {
         }
         return cell
     }
+    
+}
+
+extension TrackerViewController: CreatingTrackerViewControllerDelegate, SettingTrackerViewControllerDelegate {
+    func didCreateTracker(with version: CreatingTrackerViewController.TrackerVersion) {
+        dismiss(animated: true)
+        let settingTracker = SettingTrackerViewController(version: version)
+        settingTracker.delegate = self
+        let navigationController = UINavigationController(rootViewController: settingTracker)
+        present(navigationController, animated: true)
+    }
+    
     
 }
