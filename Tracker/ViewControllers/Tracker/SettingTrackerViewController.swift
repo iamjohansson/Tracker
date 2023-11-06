@@ -1,11 +1,13 @@
 import UIKit
 
 protocol SettingTrackerViewControllerDelegate: AnyObject {
-    
+    func didTapCancelButton()
+    func didTapCreateButton(category: String, tracker: Tracker)
 }
 
 final class SettingTrackerViewController: UIViewController {
     
+    // MARK: - Elements
     private lazy var nameTracker: UITextField = {
         let nameTracker = TextFieldSetting(placeholder: "Введите название трекера")
         nameTracker.addTarget(self, action: #selector(didChangeTextOnNameTracker), for: .editingChanged)
@@ -25,6 +27,7 @@ final class SettingTrackerViewController: UIViewController {
         let optionsTable = UITableView()
         optionsTable.translatesAutoresizingMaskIntoConstraints = false
         optionsTable.separatorStyle = .none
+        optionsTable.isScrollEnabled = false
         optionsTable.register(SettingTableCell.self, forCellReuseIdentifier: SettingTableCell.identifier)
         return optionsTable
     }()
@@ -67,6 +70,7 @@ final class SettingTrackerViewController: UIViewController {
         return buttonStack
     }()
     
+    // MARK: - Properties
     weak var delegate: SettingTrackerViewControllerDelegate?
     private let version: CreatingTrackerViewController.TrackerVersion
     private var data: Tracker.Track {
@@ -117,7 +121,7 @@ final class SettingTrackerViewController: UIViewController {
     private var messageHeightConstraint: NSLayoutConstraint?
     private var optionsTopConstraint: NSLayoutConstraint?
     
-    
+    // MARK: - Initializers
     init(version: CreatingTrackerViewController.TrackerVersion, data: Tracker.Track = Tracker.Track()) {
         self.version = version
         self.data = data
@@ -136,10 +140,12 @@ final class SettingTrackerViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .White
         optionsTableView.dataSource = self
+        optionsTableView.delegate = self
         initHideKeyboard()
         addSubViews()
         setTitle()
@@ -148,6 +154,7 @@ final class SettingTrackerViewController: UIViewController {
         checkButtonValidation()
     }
     
+    // MARK: - Layout & Setting
     private func addSubViews() {
         view.addSubview(nameTracker)
         view.addSubview(limitMessage)
@@ -171,7 +178,7 @@ final class SettingTrackerViewController: UIViewController {
             nameTracker.heightAnchor.constraint(equalToConstant: 75),
             limitMessage.centerXAnchor.constraint(equalTo: nameTracker.centerXAnchor),
             limitMessage.topAnchor.constraint(equalTo: nameTracker.bottomAnchor, constant: 8),
-            optionsTableView.heightAnchor.constraint(equalToConstant: title == "Новая привычка" ? 75 : 150),
+            optionsTableView.heightAnchor.constraint(equalToConstant: title == "Новая привычка" ? 150 : 75),
             optionsTableView.leadingAnchor.constraint(equalTo: nameTracker.leadingAnchor),
             optionsTableView.trailingAnchor.constraint(equalTo: nameTracker.trailingAnchor),
             buttonStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
@@ -189,9 +196,9 @@ final class SettingTrackerViewController: UIViewController {
             title = "Новое нерегулярное событие"
         }
     }
-    
 }
 
+// MARK: - Extension (actions & methods)
 extension SettingTrackerViewController {
     @objc private func didChangeTextOnNameTracker(_ sender: UITextField) {
         guard let text = sender.text else { return }
@@ -204,11 +211,12 @@ extension SettingTrackerViewController {
     }
     
     @objc private func didTapCancelButton() {
-        
+        delegate?.didTapCancelButton()
     }
     
     @objc private func didTapCreateButton() {
-        
+//        дописать смайлы и цвета
+//        delegate?.didTapCreateButton(category: <#String#>, tracker: <#Tracker#>)
     }
     
     @objc func hideKeyboard() {
@@ -238,6 +246,7 @@ extension SettingTrackerViewController {
     }
 }
 
+// MARK: - Extension DataSource
 extension SettingTrackerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -248,14 +257,45 @@ extension SettingTrackerViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableCell.identifier) as? SettingTableCell else { return UITableViewCell() }
         
         var description: String? = nil
+        var position: CellBackgroundSetting.Position
         
         if data.sked == nil {
             description = category
+            position = .common
         } else {
             description = indexPath.row == 0 ? category : skedString
+            position = indexPath.row == 0 ? .top : .bottom
         }
-        cell.configure(name: parametres[indexPath.row], description: description)
+        cell.configure(name: parametres[indexPath.row], description: description, position: position)
         return cell
     }
+}
+
+// MARK: - Extension Delegate
+extension SettingTrackerViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row != 0 {
+            guard let sked = data.sked else { return }
+            let skedViewController = ScheduleViewController()
+            skedViewController.delegate = self
+            let navigationController = UINavigationController(rootViewController: skedViewController)
+            present(navigationController, animated: true)
+        } else {
+            return
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
+}
+
+// MARK: - Extension Sked
+extension SettingTrackerViewController: ScheduleViewControllerDelegate {
+    func didRdy(activeDays: [WeekDays]) {
+        data.sked = activeDays
+        optionsTableView.reloadData()
+        dismiss(animated: true)
+    }
 }

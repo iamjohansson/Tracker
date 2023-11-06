@@ -29,7 +29,7 @@ final class TextFieldSetting: UITextField {
     private func setupTextField(placeholder: String) {
         translatesAutoresizingMaskIntoConstraints = false
         font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        backgroundColor = .LightGray
+        backgroundColor = .Background
         layer.cornerRadius = 16
         autocorrectionType = .yes
         self.placeholder = placeholder

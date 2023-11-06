@@ -24,6 +24,9 @@
 		84C1942A2AF6BF0200DD8B62 /* SettingTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C194292AF6BF0200DD8B62 /* SettingTrackerViewController.swift */; };
 		84C2BF182AF7BC7A0084CDE9 /* SettingTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF172AF7BC7A0084CDE9 /* SettingTableCell.swift */; };
 		84C2BF3A2AF7FBA90084CDE9 /* TextFieldSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF392AF7FBA90084CDE9 /* TextFieldSetting.swift */; };
+		84C2BF3C2AF806C00084CDE9 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF3B2AF806C00084CDE9 /* ScheduleViewController.swift */; };
+		84C2BF3E2AF80A0C0084CDE9 /* CellBackgroundSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */; };
+		84C2BF402AF822DE0084CDE9 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF3F2AF822DE0084CDE9 /* ScheduleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,9 @@
 		84C194292AF6BF0200DD8B62 /* SettingTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTrackerViewController.swift; sourceTree = "<group>"; };
 		84C2BF172AF7BC7A0084CDE9 /* SettingTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableCell.swift; sourceTree = "<group>"; };
 		84C2BF392AF7FBA90084CDE9 /* TextFieldSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldSetting.swift; sourceTree = "<group>"; };
+		84C2BF3B2AF806C00084CDE9 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellBackgroundSetting.swift; sourceTree = "<group>"; };
+		84C2BF3F2AF822DE0084CDE9 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 			children = (
 				84C193CC2AEEABF500DD8B62 /* UIColor + Extension.swift */,
 				84C2BF392AF7FBA90084CDE9 /* TextFieldSetting.swift */,
+				84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -132,6 +139,7 @@
 				84C193D02AEEAE8D00DD8B62 /* TrackerViewController.swift */,
 				84C194272AF6A97800DD8B62 /* CreatingTrackerViewController.swift */,
 				84C194292AF6BF0200DD8B62 /* SettingTrackerViewController.swift */,
+				84C2BF3B2AF806C00084CDE9 /* ScheduleViewController.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -160,6 +168,7 @@
 			children = (
 				84C194252AF692D600DD8B62 /* TrackerCell.swift */,
 				84C2BF172AF7BC7A0084CDE9 /* SettingTableCell.swift */,
+				84C2BF3F2AF822DE0084CDE9 /* ScheduleCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -237,6 +246,9 @@
 				84C1941F2AF2CCE100DD8B62 /* TrackerCategory.swift in Sources */,
 				84C1942A2AF6BF0200DD8B62 /* SettingTrackerViewController.swift in Sources */,
 				84C193D12AEEAE8D00DD8B62 /* TrackerViewController.swift in Sources */,
+				84C2BF3C2AF806C00084CDE9 /* ScheduleViewController.swift in Sources */,
+				84C2BF402AF822DE0084CDE9 /* ScheduleCell.swift in Sources */,
+				84C2BF3E2AF80A0C0084CDE9 /* CellBackgroundSetting.swift in Sources */,
 				84C2BF3A2AF7FBA90084CDE9 /* TextFieldSetting.swift in Sources */,
 				84C1941D2AF2CA4400DD8B62 /* WeekDays.swift in Sources */,
 				84C193B92AEE64A100DD8B62 /* TabBarViewController.swift in Sources */,

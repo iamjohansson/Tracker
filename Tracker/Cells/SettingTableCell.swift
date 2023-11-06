@@ -2,13 +2,8 @@ import UIKit
 
 final class SettingTableCell: UITableViewCell {
     
-    private lazy var cellView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .LightGray
-        view.layer.cornerRadius = 10
-        return view
-    }()
+    // MARK: - Elements
+    private lazy var cellView = CellBackgroundSetting()
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -41,8 +36,10 @@ final class SettingTableCell: UITableViewCell {
         return stack
     }()
     
+    // MARK: - Identifier
     static let identifier = "TableCell"
     
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -50,12 +47,15 @@ final class SettingTableCell: UITableViewCell {
         applyConstraint()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(name: String, description: String?) {
+    // MARK: - Methods
+    func configure(name: String, description: String?, position: CellBackgroundSetting.Position) {
         nameLabel.text = name
+        cellView.configure(position: position)
         
         if let description {
             descriptionLabel.text = description
@@ -64,6 +64,7 @@ final class SettingTableCell: UITableViewCell {
 
 }
 
+// MARK: - Extension (Layout & Setting)
 private extension SettingTableCell {
     
     func addSubViews() {
