@@ -127,6 +127,15 @@ extension TrackerViewController: UICollectionViewDataSource {
 }
 
 extension TrackerViewController: CreatingTrackerViewControllerDelegate, SettingTrackerViewControllerDelegate {
+    
+    func didTapCancelButton() {
+        
+    }
+    
+    func didTapCreateButton(category: String, tracker: Tracker) {
+
+    }
+    
     func didCreateTracker(with version: CreatingTrackerViewController.TrackerVersion) {
         dismiss(animated: true)
         let settingTracker = SettingTrackerViewController(version: version)

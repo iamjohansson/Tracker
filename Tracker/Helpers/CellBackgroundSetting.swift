@@ -2,10 +2,12 @@ import UIKit
 
 final class CellBackgroundSetting: UIView {
     
-    private let cellView: UIView = {
-        let cellView = UIView()
-        cellView.backgroundColor = .Background
-        return cellView
+    private let cellViewBoard: UIView = {
+        let cellViewBoard = UIView()
+        cellViewBoard.translatesAutoresizingMaskIntoConstraints = false
+        cellViewBoard.backgroundColor = .Gray
+        cellViewBoard.isHidden = true
+        return cellViewBoard
     }()
     
     override init(frame: CGRect) {
@@ -24,13 +26,13 @@ final class CellBackgroundSetting: UIView {
         layer.masksToBounds = true
         backgroundColor = .Background
         
-        addSubview(cellView)
+        addSubview(cellViewBoard)
         
         NSLayoutConstraint.activate([
-            cellView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            cellView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            cellView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            cellView.heightAnchor.constraint(equalToConstant: 75)
+            cellViewBoard.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            cellViewBoard.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            cellViewBoard.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cellViewBoard.heightAnchor.constraint(equalToConstant: 0.5)
         ])
     }
     
@@ -40,8 +42,10 @@ final class CellBackgroundSetting: UIView {
         switch position {
         case .top:
             layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            cellViewBoard.isHidden = false
         case .middle:
             layer.cornerRadius = 0
+            cellViewBoard.isHidden = false
         case .bottom:
             layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         case .common:

@@ -32,6 +32,17 @@ final class ScheduleViewController: UIViewController {
     weak var delegate: ScheduleViewControllerDelegate?
     private var markedWeekdays: Set<WeekDays> = []
     
+    // MARK: - Initializers
+    init(markedWeekdays: [WeekDays]) {
+        super.init(nibName: nil, bundle: nil)
+        self.markedWeekdays = Set(markedWeekdays)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +68,7 @@ final class ScheduleViewController: UIViewController {
             weekdaysTableView.bottomAnchor.constraint(equalTo: readyButton.topAnchor, constant: -47),
             readyButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             readyButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            readyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16),
+            readyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             readyButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
@@ -66,7 +77,11 @@ final class ScheduleViewController: UIViewController {
 // MARK: - Extension (actions & methods)
 extension ScheduleViewController {
     @objc private func didTapRdyButton() {
-        let days = Array(markedWeekdays)
+        let days = Array(markedWeekdays).sorted { (day1, day2) -> Bool in
+            guard let weekday1 = WeekDays.allCases.firstIndex(of: day1),
+                  let weekday2 = WeekDays.allCases.firstIndex(of: day2) else { return false }
+            return weekday1 < weekday2
+        }
         delegate?.didRdy(activeDays: days)
     }
 }
@@ -87,9 +102,9 @@ extension ScheduleViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             position = .top
-        case 1...6:
+        case 1...5:
             position = .middle
-        case 7:
+        case 6:
             position = .bottom
         default:
             position = .common

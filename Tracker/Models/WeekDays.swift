@@ -1,6 +1,6 @@
 import Foundation
 
-enum WeekDays: String, CaseIterable {
+enum WeekDays: String, CaseIterable, Comparable {
     
     case monday = "Понедельник"
     case tuesday = "Вторник"
@@ -28,5 +28,9 @@ enum WeekDays: String, CaseIterable {
             return "Вс"
         }
    
+    }
+    
+    static func < (lhs: WeekDays, rhs: WeekDays) -> Bool {
+        return lhs.rawValue < rhs.rawValue
     }
 }

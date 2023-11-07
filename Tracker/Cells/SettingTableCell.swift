@@ -25,6 +25,7 @@ final class SettingTableCell: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "arrowRight"), for: .normal)
+        button.isEnabled = false
         return button
     }()
     
@@ -42,7 +43,7 @@ final class SettingTableCell: UITableViewCell {
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        selectionStyle = .none
         addSubViews()
         applyConstraint()
     }

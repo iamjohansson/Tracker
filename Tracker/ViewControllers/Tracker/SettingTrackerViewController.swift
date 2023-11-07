@@ -35,7 +35,7 @@ final class SettingTrackerViewController: UIViewController {
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle("Отменить", for: .normal)
@@ -50,7 +50,7 @@ final class SettingTrackerViewController: UIViewController {
     private lazy var createButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle("Создать", for: .normal)
@@ -83,9 +83,11 @@ final class SettingTrackerViewController: UIViewController {
         willSet {
             if newValue {
                 createButton.backgroundColor = .Black
+                createButton.setTitleColor(.White, for: .normal)
                 createButton.isEnabled = true
             } else {
                 createButton.backgroundColor = .Gray
+                createButton.setTitleColor(.white, for: .normal)
                 createButton.isEnabled = false
             }
         }
@@ -118,6 +120,13 @@ final class SettingTrackerViewController: UIViewController {
     }
     
     private let parametres = ["Категория", "Расписание"]
+    private let emoji = [
+        "🙂", "😻", "🌺", "🐶", "❤️", "😱",
+        "😇", "😡", "🥶", "🤔", "🙌", "🍔",
+        "🥦", "🏓", "🥇", "🎸", "🏝", "😪",
+    ]
+    private let trackerColors = UIColor.trackerColors
+    
     private var messageHeightConstraint: NSLayoutConstraint?
     private var optionsTopConstraint: NSLayoutConstraint?
     
@@ -144,14 +153,14 @@ final class SettingTrackerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .White
+        nameTracker.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.delegate = self
-        initHideKeyboard()
         addSubViews()
         setTitle()
         applyConstraint()
-        
         checkButtonValidation()
+        takeRandomElement()
     }
     
     // MARK: - Layout & Setting
@@ -219,30 +228,30 @@ extension SettingTrackerViewController {
 //        delegate?.didTapCreateButton(category: <#String#>, tracker: <#Tracker#>)
     }
     
-    @objc func hideKeyboard() {
-        view.endEditing(true)
-    }
-    
     private func checkButtonValidation() {
         if data.name.count == 0 {
             buttonIsEnable = false
+            return
         }
         if limitMessageVisible {
             buttonIsEnable = false
+            return
         }
         if category == nil {
             buttonIsEnable = false
+            return
         }
         if let sked = data.sked,
             sked.isEmpty {
             buttonIsEnable = false
+            return
         }
         buttonIsEnable = true
     }
     
-    func initHideKeyboard() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(tap)
+    private func takeRandomElement() {
+        data.emoji = emoji.randomElement()
+        data.color = trackerColors.randomElement()
     }
 }
 
@@ -277,7 +286,7 @@ extension SettingTrackerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row != 0 {
             guard let sked = data.sked else { return }
-            let skedViewController = ScheduleViewController()
+            let skedViewController = ScheduleViewController(markedWeekdays: sked)
             skedViewController.delegate = self
             let navigationController = UINavigationController(rootViewController: skedViewController)
             present(navigationController, animated: true)
@@ -297,5 +306,12 @@ extension SettingTrackerViewController: ScheduleViewControllerDelegate {
         data.sked = activeDays
         optionsTableView.reloadData()
         dismiss(animated: true)
+    }
+}
+
+extension SettingTrackerViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nameTracker.resignFirstResponder()
+        return true
     }
 }
