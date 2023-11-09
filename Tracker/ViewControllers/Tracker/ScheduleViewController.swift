@@ -48,8 +48,7 @@ final class ScheduleViewController: UIViewController {
         super.viewDidLoad()
         title = "Расписание"
         view.backgroundColor = .White
-        weekdaysTableView.dataSource = self
-        weekdaysTableView.delegate = self
+        setupDelegates()
         addSubView()
         applyConstraint()
     }
@@ -71,6 +70,11 @@ final class ScheduleViewController: UIViewController {
             readyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             readyButton.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    private func setupDelegates() {
+        weekdaysTableView.dataSource = self
+        weekdaysTableView.delegate = self
     }
 }
 

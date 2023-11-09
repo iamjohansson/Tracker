@@ -10,6 +10,7 @@
 		846A49FC2AFBFF3F007B1204 /* UICollection + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A49FB2AFBFF3F007B1204 /* UICollection + Extension.swift */; };
 		846A49FE2AFC0000007B1204 /* TrackerCategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */; };
 		846A4A002AFC1DFC007B1204 /* Int + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */; };
+		84811F1E2AFD696D00C396F3 /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F1D2AFD696D00C396F3 /* UIStackView + Extension.swift */; };
 		84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B42AEE64A100DD8B62 /* AppDelegate.swift */; };
 		84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B62AEE64A100DD8B62 /* SceneDelegate.swift */; };
 		84C193B92AEE64A100DD8B62 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B82AEE64A100DD8B62 /* TabBarViewController.swift */; };
@@ -36,6 +37,7 @@
 		846A49FB2AFBFF3F007B1204 /* UICollection + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollection + Extension.swift"; sourceTree = "<group>"; };
 		846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryHeader.swift; sourceTree = "<group>"; };
 		846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + Extension.swift"; sourceTree = "<group>"; };
+		84811F1D2AFD696D00C396F3 /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
 		84C193B12AEE64A100DD8B62 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C193B42AEE64A100DD8B62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84C193B62AEE64A100DD8B62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				84C193CC2AEEABF500DD8B62 /* UIColor + Extension.swift */,
 				84C2BF392AF7FBA90084CDE9 /* TextFieldSetting.swift */,
 				84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */,
+				84811F1D2AFD696D00C396F3 /* UIStackView + Extension.swift */,
 				846A49FB2AFBFF3F007B1204 /* UICollection + Extension.swift */,
 				846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */,
 			);
@@ -269,6 +272,7 @@
 				84C194212AF2CDED00DD8B62 /* TrackerRecord.swift in Sources */,
 				84C193D42AEEAFF700DD8B62 /* StatisticViewController.swift in Sources */,
 				84C2BF182AF7BC7A0084CDE9 /* SettingTableCell.swift in Sources */,
+				84811F1E2AFD696D00C396F3 /* UIStackView + Extension.swift in Sources */,
 				84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */,
 				84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */,
 				84C194282AF6A97800DD8B62 /* CreatingTrackerViewController.swift in Sources */,

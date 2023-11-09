@@ -1,6 +1,8 @@
 import Foundation
 
 extension Int {
+    
+    // MARK: - Word Declension Method
         func daysString() -> String {
             if self == 0 {
                         return "\(self) дней"

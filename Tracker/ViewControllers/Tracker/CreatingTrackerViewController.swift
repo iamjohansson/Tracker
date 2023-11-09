@@ -6,6 +6,7 @@ protocol CreatingTrackerViewControllerDelegate: AnyObject {
 
 final class CreatingTrackerViewController: UIViewController {
     
+    // MARK: - Elements
     private lazy var habitButton: UIButton = {
         let habitButton = UIButton()
         habitButton.translatesAutoresizingMaskIntoConstraints = false
@@ -38,8 +39,10 @@ final class CreatingTrackerViewController: UIViewController {
         return buttonStack
     }()
     
+    // MARK: - Properties
     weak var delegate: CreatingTrackerViewControllerDelegate?
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Создание трекера"
@@ -49,6 +52,7 @@ final class CreatingTrackerViewController: UIViewController {
         applyConstraint()
     }
     
+    // MARK: - Layout & Setting
     private func addSubViews() {
         view.addSubview(buttonStack)
         buttonStack.addArrangedSubview(habitButton)
@@ -65,11 +69,13 @@ final class CreatingTrackerViewController: UIViewController {
         ])
     }
     
+    // MARK: - Tracker type
     enum TrackerVersion {
         case habit, event
     }
 }
 
+// MARK: - Extension - Actions
 private extension CreatingTrackerViewController {
     @objc func didTapHabitButton() {
         title = "Новая привычка"

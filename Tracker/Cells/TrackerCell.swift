@@ -60,13 +60,15 @@ final class TrackerCell: UICollectionViewCell {
     
     // MARK: - Properties
     weak var delegate: TrackerCellDelegate?
-    static let identifier = "TrackerCell"
     private var tracker: Tracker?
     private var daysCount = 0 {
         willSet {
             daysLabel.text = newValue.daysString()
         }
     }
+    
+    // MARK: - Identifier
+    static let identifier = "TrackerCell"
     
     // MARK: - Initializers
     override init(frame: CGRect) {

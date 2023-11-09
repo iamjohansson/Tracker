@@ -2,6 +2,7 @@ import UIKit
 
 final class CellBackgroundSetting: UIView {
     
+    // MARK: - Elements
     private let cellViewBoard: UIView = {
         let cellViewBoard = UIView()
         cellViewBoard.translatesAutoresizingMaskIntoConstraints = false
@@ -10,6 +11,7 @@ final class CellBackgroundSetting: UIView {
         return cellViewBoard
     }()
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -20,6 +22,7 @@ final class CellBackgroundSetting: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Method
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 16
@@ -36,6 +39,7 @@ final class CellBackgroundSetting: UIView {
         ])
     }
     
+    // MARK: - Configure Method for Corners & Cell Separator
     func configure(position: Position) {
         layer.cornerRadius = 16
         
@@ -54,6 +58,7 @@ final class CellBackgroundSetting: UIView {
     }
 }
 
+// MARK: - Extension (Enum)
 extension CellBackgroundSetting {
     enum Position {
         case top, middle, bottom, common

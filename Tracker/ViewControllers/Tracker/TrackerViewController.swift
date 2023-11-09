@@ -2,7 +2,7 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
     
-    // MARK: Elements
+    // MARK: - Elements
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,32 +66,9 @@ final class TrackerViewController: UIViewController {
         return button
     }()
     
-    private lazy var placeholderImage: UIImageView = {
-        let placeImage = UIImageView()
-        placeImage.translatesAutoresizingMaskIntoConstraints = false
-        placeImage.image = UIImage(named: "starPlaceholder")
-        return placeImage
-    }()
-    
-    private lazy var placeholderStatus: UILabel = {
-        let placeStatus = UILabel()
-        placeStatus.translatesAutoresizingMaskIntoConstraints = false
-        placeStatus.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        placeStatus.text = "Что будем отслеживать?"
-        placeStatus.textColor = .Black
-        return placeStatus
-    }()
-    
-    private lazy var stackView: UIStackView = {
-       let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 8
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        return stackView
-    }()
-    
     // MARK: - Properties
+    private let defaultPlaceholder = UIStackView()
+    private let searchPlaceholder = UIStackView()
     private var categories: [TrackerCategory] = TrackerCategory.defaultValue
     private var completedTrackers: Set<TrackerRecord> = []
     private var currentDate = Date()
@@ -120,10 +97,8 @@ final class TrackerViewController: UIViewController {
         }
         
         if tracker.isEmpty {
-            stackView.isHidden = false
             filterButton.isHidden = true
         } else {
-            stackView.isHidden = true
             filterButton.isHidden = false
         }
         return tracker
@@ -136,9 +111,11 @@ final class TrackerViewController: UIViewController {
         hideKeyboard()
         addSubViews()
         applyConstraint()
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        searchField.delegate = self
+        defaultPlaceholder.configure(name: "starPlaceholder", text: "Что будем отслеживать?")
+        searchPlaceholder.configure(name: "monoclePlaceholder", text: "Ничего не найдено")
+        placeholderCheckForEmpty()
+        placeholderCheckForSearch()
+        setupDelegates()
     }
     
     // MARK: - Layout & Setting
@@ -148,10 +125,9 @@ final class TrackerViewController: UIViewController {
         view.addSubview(searchField)
         view.addSubview(datePicker)
         view.addSubview(collectionView)
-        view.addSubview(stackView)
+        view.addSubview(defaultPlaceholder)
+        view.addSubview(searchPlaceholder)
         view.addSubview(filterButton)
-        stackView.addArrangedSubview(placeholderImage)
-        stackView.addArrangedSubview(placeholderStatus)
     }
     
     private func applyConstraint() {
@@ -172,17 +148,26 @@ final class TrackerViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            defaultPlaceholder.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            defaultPlaceholder.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            searchPlaceholder.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            searchPlaceholder.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             filterButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             filterButton.heightAnchor.constraint(equalToConstant: 50),
             filterButton.widthAnchor.constraint(equalToConstant: 114)
         ])
     }
+    
+    private func setupDelegates() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        searchField.delegate = self
+    }
+    
 }
 
-// MARK: - Actions
+// MARK: - Actions & Methods
 extension TrackerViewController {
     @objc private func didTapPlusButton() {
         let createTrack = CreatingTrackerViewController()
@@ -194,6 +179,16 @@ extension TrackerViewController {
     @objc private func didChangeDate(_ sender: UIDatePicker) {
         currentDate = sender.date
         collectionView.reloadData()
+    }
+    
+    private func placeholderCheckForEmpty() {
+        let isHidden = currentlyTrackers.isEmpty && searchPlaceholder.isHidden
+        defaultPlaceholder.isHidden = !isHidden
+    }
+    
+    private func placeholderCheckForSearch() {
+        let isHidden = currentlyTrackers.isEmpty && searchField.text != ""
+        searchPlaceholder.isHidden = !isHidden
     }
 }
 
@@ -216,7 +211,8 @@ extension TrackerViewController: TrackerCellDelegate {
 // MARK: - Extension DataSource
 extension TrackerViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        currentlyTrackers.count
+        placeholderCheckForEmpty()
+        return currentlyTrackers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -301,9 +297,11 @@ extension TrackerViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchText
         collectionView.reloadData()
+        placeholderCheckForSearch()
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        placeholderCheckForSearch()
         searchBar.setShowsCancelButton(true, animated: true)
         return true
     }
@@ -314,13 +312,14 @@ extension TrackerViewController: UISearchBarDelegate {
         searchBar.setShowsCancelButton(false, animated: true)
         self.searchText = ""
         collectionView.reloadData()
+        placeholderCheckForSearch()
     }
 }
 
 // MARK: - Extension Recognizer
 extension TrackerViewController {
     
-    func hideKeyboard() {
+    private func hideKeyboard() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
