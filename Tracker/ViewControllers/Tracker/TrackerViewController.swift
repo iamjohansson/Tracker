@@ -40,6 +40,7 @@ final class TrackerViewController: UIViewController {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         datePicker.calendar = Calendar(identifier: .iso8601)
+        datePicker.maximumDate = Date()
         datePicker.locale = Locale(identifier: "ru_RU")
         
         datePicker.addTarget(self, action: #selector(didChangeDate), for: .valueChanged)
