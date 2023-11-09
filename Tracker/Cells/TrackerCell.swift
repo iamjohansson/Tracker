@@ -1,24 +1,32 @@
 import UIKit
 
+protocol TrackerCellDelegate: AnyObject {
+    func didTapExecButton(cell: TrackerCell, with tracker: Tracker)
+}
+
 final class TrackerCell: UICollectionViewCell {
     
+    // MARK: - Elements
     private let cardView: UIView = {
         let cardView = UIView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
-        cardView.layer.cornerRadius = cardView.frame.size.height / 2
+        cardView.layer.borderWidth = 1
+        cardView.layer.borderColor = UIColor(red: 0xAE/255.0, green: 0xAF/255.0, blue: 0xB4/255.0, alpha: 0.3).cgColor
+        cardView.layer.cornerRadius = 16
         return cardView
     }()
     
     private let emojiView: UIView = {
         let emojiView = UIView()
         emojiView.translatesAutoresizingMaskIntoConstraints = false
-        emojiView.layer.cornerRadius = emojiView.frame.size.height / 2
-        emojiView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
+        emojiView.layer.cornerRadius = 12
+        emojiView.backgroundColor = UIColor(red: 0xFF/255.0, green: 0xFF/255.0, blue: 0xFF/255.0, alpha: 0.2)
         return emojiView
     }()
     
     private let emojiLabel: UILabel = {
         let emojiLabel = UILabel()
+        emojiLabel.font = UIFont.systemFont(ofSize: 16)
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
         return emojiLabel
     }()
@@ -45,16 +53,22 @@ final class TrackerCell: UICollectionViewCell {
         execButton.translatesAutoresizingMaskIntoConstraints = false
         execButton.setImage(UIImage(systemName: "plus"), for: .normal)
         execButton.tintColor = .White
-        execButton.layer.cornerRadius = execButton.frame.size.height / 2
+        execButton.layer.cornerRadius = 17
         execButton.addTarget(self, action: #selector(didTapExecButton), for: .touchUpInside)
         return execButton
     }()
     
+    // MARK: - Properties
+    weak var delegate: TrackerCellDelegate?
     static let identifier = "TrackerCell"
     private var tracker: Tracker?
-    private var daysCount = 0
+    private var daysCount = 0 {
+        willSet {
+            daysLabel.text = newValue.daysString()
+        }
+    }
     
-    
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubViews()
@@ -65,11 +79,51 @@ final class TrackerCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Methods
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        tracker = nil
+        daysCount = 0
+        execButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        execButton.layer.opacity = 1
+    }
+    
+    func configure(with tracker: Tracker, days: Int, active: Bool) {
+        self.tracker = tracker
+        self.daysCount = days
+        cardView.backgroundColor = tracker.color
+        emojiLabel.text = tracker.emoji
+        trackerLabel.text = tracker.name
+        execButton.backgroundColor = tracker.color
+        changeImageButton(active: active)
+    }
+    
+    func changeImageButton(active: Bool) {
+        if active {
+            execButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            execButton.layer.opacity = 0.3 // несовсем понятно, надо ее глушить или нет)
+        } else {
+            execButton.setImage(UIImage(systemName: "plus"), for: .normal)
+            execButton.layer.opacity = 1
+        }
+    }
+    
+    func addOrSubtrack(value: Bool) {
+        if value == true {
+            daysCount += 1
+        } else {
+            daysCount -= 1
+        }
+    }
 }
 
+// MARK: - Layout & Setting & Actions
 private extension TrackerCell {
     
     @objc func didTapExecButton() {
+        guard let tracker else { return }
+        delegate?.didTapExecButton(cell: self, with: tracker)
     }
     
     func addSubViews() {

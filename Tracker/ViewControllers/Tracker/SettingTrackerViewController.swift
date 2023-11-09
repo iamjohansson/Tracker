@@ -224,8 +224,11 @@ extension SettingTrackerViewController {
     }
     
     @objc private func didTapCreateButton() {
-//        дописать смайлы и цвета
-//        delegate?.didTapCreateButton(category: <#String#>, tracker: <#Tracker#>)
+        guard let category = category,
+              let emoji = data.emoji,
+              let color = data.color else { return }
+        let createNewTracker = Tracker(name: data.name, color: color, emoji: emoji, sked: data.sked)
+        delegate?.didTapCreateButton(category: category, tracker: createNewTracker)
     }
     
     private func checkButtonValidation() {

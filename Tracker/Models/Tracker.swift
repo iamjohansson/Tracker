@@ -5,7 +5,15 @@ struct Tracker {
     let name: String
     let color: UIColor
     let emoji: String
-    let sked: [WeekDays]
+    let sked: [WeekDays]?
+    
+    init(id: UUID = UUID(), name: String, color: UIColor, emoji: String, sked: [WeekDays]?) {
+        self.id = id
+        self.name = name
+        self.color = color
+        self.emoji = emoji
+        self.sked = sked
+    }
 }
 
 extension Tracker {

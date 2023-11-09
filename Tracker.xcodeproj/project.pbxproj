@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		846A49FC2AFBFF3F007B1204 /* UICollection + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A49FB2AFBFF3F007B1204 /* UICollection + Extension.swift */; };
+		846A49FE2AFC0000007B1204 /* TrackerCategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */; };
+		846A4A002AFC1DFC007B1204 /* Int + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */; };
 		84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B42AEE64A100DD8B62 /* AppDelegate.swift */; };
 		84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B62AEE64A100DD8B62 /* SceneDelegate.swift */; };
 		84C193B92AEE64A100DD8B62 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B82AEE64A100DD8B62 /* TabBarViewController.swift */; };
@@ -30,6 +33,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		846A49FB2AFBFF3F007B1204 /* UICollection + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollection + Extension.swift"; sourceTree = "<group>"; };
+		846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryHeader.swift; sourceTree = "<group>"; };
+		846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + Extension.swift"; sourceTree = "<group>"; };
 		84C193B12AEE64A100DD8B62 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C193B42AEE64A100DD8B62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84C193B62AEE64A100DD8B62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +127,8 @@
 				84C193CC2AEEABF500DD8B62 /* UIColor + Extension.swift */,
 				84C2BF392AF7FBA90084CDE9 /* TextFieldSetting.swift */,
 				84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */,
+				846A49FB2AFBFF3F007B1204 /* UICollection + Extension.swift */,
+				846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -140,6 +148,7 @@
 				84C194272AF6A97800DD8B62 /* CreatingTrackerViewController.swift */,
 				84C194292AF6BF0200DD8B62 /* SettingTrackerViewController.swift */,
 				84C2BF3B2AF806C00084CDE9 /* ScheduleViewController.swift */,
+				846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -247,13 +256,16 @@
 				84C1942A2AF6BF0200DD8B62 /* SettingTrackerViewController.swift in Sources */,
 				84C193D12AEEAE8D00DD8B62 /* TrackerViewController.swift in Sources */,
 				84C2BF3C2AF806C00084CDE9 /* ScheduleViewController.swift in Sources */,
+				846A4A002AFC1DFC007B1204 /* Int + Extension.swift in Sources */,
 				84C2BF402AF822DE0084CDE9 /* ScheduleCell.swift in Sources */,
 				84C2BF3E2AF80A0C0084CDE9 /* CellBackgroundSetting.swift in Sources */,
 				84C2BF3A2AF7FBA90084CDE9 /* TextFieldSetting.swift in Sources */,
 				84C1941D2AF2CA4400DD8B62 /* WeekDays.swift in Sources */,
 				84C193B92AEE64A100DD8B62 /* TabBarViewController.swift in Sources */,
+				846A49FE2AFC0000007B1204 /* TrackerCategoryHeader.swift in Sources */,
 				84C193CD2AEEABF500DD8B62 /* UIColor + Extension.swift in Sources */,
 				84C194262AF692D600DD8B62 /* TrackerCell.swift in Sources */,
+				846A49FC2AFBFF3F007B1204 /* UICollection + Extension.swift in Sources */,
 				84C194212AF2CDED00DD8B62 /* TrackerRecord.swift in Sources */,
 				84C193D42AEEAFF700DD8B62 /* StatisticViewController.swift in Sources */,
 				84C2BF182AF7BC7A0084CDE9 /* SettingTableCell.swift in Sources */,
