@@ -104,7 +104,7 @@ final class TrackerCell: UICollectionViewCell {
     func changeImageButton(active: Bool) {
         if active {
             execButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            execButton.layer.opacity = 0.3 // несовсем понятно, надо ее глушить или нет)
+            execButton.layer.opacity = 0.3
         } else {
             execButton.setImage(UIImage(systemName: "plus"), for: .normal)
             execButton.layer.opacity = 1

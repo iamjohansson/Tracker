@@ -40,7 +40,6 @@ final class TrackerViewController: UIViewController {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         datePicker.calendar = Calendar(identifier: .iso8601)
-        datePicker.maximumDate = Date()
         datePicker.locale = Locale(identifier: "ru_RU")
         
         datePicker.addTarget(self, action: #selector(didChangeDate), for: .valueChanged)
@@ -68,6 +67,7 @@ final class TrackerViewController: UIViewController {
     }()
     
     // MARK: - Properties
+    private var execButtonIsEnableValue = true
     private let defaultPlaceholder = UIStackView()
     private let searchPlaceholder = UIStackView()
     private var categories: [TrackerCategory] = TrackerCategory.defaultValue
@@ -179,7 +179,12 @@ extension TrackerViewController {
     
     @objc private func didChangeDate(_ sender: UIDatePicker) {
         currentDate = sender.date
+        execButtonIsEnableValue = isDateinPast(currentDate)
         collectionView.reloadData()
+    }
+    
+    private func isDateinPast(_ date: Date) -> Bool {
+        return date <= Date()
     }
     
     private func placeholderCheckForEmpty() {
@@ -196,15 +201,25 @@ extension TrackerViewController {
 // MARK: - Extension CellDelegate
 extension TrackerViewController: TrackerCellDelegate {
     func didTapExecButton(cell: TrackerCell, with tracker: Tracker) {
-        let recordingTracker = TrackerRecord(id: tracker.id, date: currentDate)
-        if let index = completedTrackers.firstIndex(where: { $0.date == currentDate && $0.id == tracker.id }) {
-            completedTrackers.remove(at: index)
-            cell.changeImageButton(active: false)
-            cell.addOrSubtrack(value: false)
-        } else {
-            completedTrackers.insert(recordingTracker)
-            cell.changeImageButton(active: true)
-            cell.addOrSubtrack(value: true)
+        if execButtonIsEnableValue == true {
+            let recordingTracker = TrackerRecord(id: tracker.id, date: currentDate)
+            if let index = completedTrackers.firstIndex(where: { $0.date == currentDate && $0.id == tracker.id }) {
+                completedTrackers.remove(at: index)
+                cell.changeImageButton(active: false)
+                cell.addOrSubtrack(value: false)
+            } else {
+                completedTrackers.insert(recordingTracker)
+                cell.changeImageButton(active: true)
+                cell.addOrSubtrack(value: true)
+            }
+        } else {  // Полностью блокировать не стал, просто уведомим пользователя, что ни-ни
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            let todayFormDate = dateFormatter.string(from: date)
+            let alert = UIAlertController(title: "Сегодня - \(todayFormDate)г.", message: "Нельзя выполнить действие для выбранной даты.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Понятно", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
 }
