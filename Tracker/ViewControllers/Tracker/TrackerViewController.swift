@@ -217,7 +217,8 @@ extension TrackerViewController: TrackerCellDelegate {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd.MM.yyyy"
             let todayFormDate = dateFormatter.string(from: date)
-            let alert = UIAlertController(title: "Сегодня - \(todayFormDate)г.", message: "Нельзя выполнить действие для выбранной даты.", preferredStyle: .alert)
+            let selectedDate = dateFormatter.string(from: currentDate)
+            let alert = UIAlertController(title: "Сегодня - \(todayFormDate)г.", message: "Нельзя выполнить данное действие - \(selectedDate)г., т.к. данный период времени еще не наступил!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Понятно", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
