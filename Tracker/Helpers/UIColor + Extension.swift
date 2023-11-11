@@ -2,13 +2,13 @@ import UIKit
 
 extension UIColor {
     // MARK: - System Colors - for light and dark theme
-    static var Background: UIColor { UIColor(named: "Background") ?? UIColor.darkGray }
-    static var Black: UIColor { UIColor(named: "Black") ?? UIColor.black }
-    static var Blue: UIColor { UIColor(named: "Blue") ?? UIColor.blue }
-    static var Gray: UIColor { UIColor(named: "Gray") ?? UIColor.gray }
-    static var LightGray: UIColor { UIColor(named: "Light Gray") ?? UIColor.lightGray }
-    static var Red: UIColor { UIColor(named: "Red") ?? UIColor.red }
-    static var White: UIColor { UIColor(named: "White") ?? UIColor.white }
+    static var yaBackground: UIColor { UIColor(named: "Background") ?? UIColor.darkGray }
+    static var yaBlack: UIColor { UIColor(named: "Black") ?? UIColor.black }
+    static var yaBlue: UIColor { UIColor(named: "Blue") ?? UIColor.blue }
+    static var yaGray: UIColor { UIColor(named: "Gray") ?? UIColor.gray }
+    static var yaLightGray: UIColor { UIColor(named: "Light Gray") ?? UIColor.lightGray }
+    static var yaRed: UIColor { UIColor(named: "Red") ?? UIColor.red }
+    static var yaWhite: UIColor { UIColor(named: "White") ?? UIColor.white }
     
     // MARK: - Collection Colors
     static var trackerColors = [

@@ -8,7 +8,7 @@ final class SettingTableCell: UITableViewCell {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .Black
+        label.textColor = .yaBlack
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         return label
     }()
@@ -16,7 +16,7 @@ final class SettingTableCell: UITableViewCell {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .Gray
+        label.textColor = .yaGray
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         return label
     }()

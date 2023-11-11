@@ -12,8 +12,8 @@ final class CreatingTrackerViewController: UIViewController {
         habitButton.translatesAutoresizingMaskIntoConstraints = false
         habitButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         habitButton.setTitle("Привычка", for: .normal)
-        habitButton.setTitleColor(.White, for: .normal)
-        habitButton.backgroundColor = .Black
+        habitButton.setTitleColor(.yaWhite, for: .normal)
+        habitButton.backgroundColor = .yaBlack
         habitButton.layer.cornerRadius = 16
         habitButton.addTarget(self, action: #selector(didTapHabitButton), for: .touchUpInside)
         return habitButton
@@ -24,8 +24,8 @@ final class CreatingTrackerViewController: UIViewController {
         eventButton.translatesAutoresizingMaskIntoConstraints = false
         eventButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         eventButton.setTitle("Нерегулярное событие", for: .normal) //в фигме не по русски написано как-то)
-        eventButton.setTitleColor(.White, for: .normal)
-        eventButton.backgroundColor = .Black
+        eventButton.setTitleColor(.yaWhite, for: .normal)
+        eventButton.backgroundColor = .yaBlack
         eventButton.layer.cornerRadius = 16
         eventButton.addTarget(self, action: #selector(didTapEventButton), for: .touchUpInside)
         return eventButton
@@ -46,7 +46,7 @@ final class CreatingTrackerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Создание трекера"
-        view.backgroundColor = .White
+        view.backgroundColor = .yaWhite
         
         addSubViews()
         applyConstraint()

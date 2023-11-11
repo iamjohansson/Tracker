@@ -8,7 +8,7 @@ final class StatisticViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Статистика"
         titleLabel.font = UIFont.systemFont(ofSize: 34, weight: .bold)
-        titleLabel.textColor = .Black
+        titleLabel.textColor = .yaBlack
         return titleLabel
     }()
     
@@ -18,7 +18,7 @@ final class StatisticViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .White
+        view.backgroundColor = .yaWhite
         addSubView()
         applyConstraint()
         statisticPlaceholder.configure(name: "cryPlaceholder", text: "Анализировать пока нечего")

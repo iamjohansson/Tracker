@@ -10,7 +10,7 @@ extension UIStackView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.text = text
-        label.textColor = .Black
+        label.textColor = .yaBlack
         self.spacing = 8
         self.axis = .vertical
         self.alignment = .center

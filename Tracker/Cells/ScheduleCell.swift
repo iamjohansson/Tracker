@@ -13,14 +13,14 @@ final class ScheduleCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.textColor = .Black
+        label.textColor = .yaBlack
         return label
     }()
     
     private lazy var switchToggle: UISwitch = {
         let switchToggle = UISwitch()
         switchToggle.translatesAutoresizingMaskIntoConstraints = false
-        switchToggle.onTintColor = .Blue
+        switchToggle.onTintColor = .yaBlue
         switchToggle.addTarget(self, action: #selector(didToggleSwitch), for: .valueChanged)
         return switchToggle
     }()

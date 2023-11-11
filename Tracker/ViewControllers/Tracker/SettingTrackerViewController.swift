@@ -18,7 +18,7 @@ final class SettingTrackerViewController: UIViewController {
         let limit = UILabel()
         limit.translatesAutoresizingMaskIntoConstraints = false
         limit.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        limit.textColor = .Red
+        limit.textColor = .yaRed
         limit.text = "Ограничение 38 символов"
         return limit
     }()
@@ -39,10 +39,10 @@ final class SettingTrackerViewController: UIViewController {
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         button.setTitle("Отменить", for: .normal)
-        button.setTitleColor(.Red, for: .normal)
-        button.backgroundColor = .White
+        button.setTitleColor(.yaRed, for: .normal)
+        button.backgroundColor = .yaWhite
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.Red.cgColor
+        button.layer.borderColor = UIColor.yaRed.cgColor
         button.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
         return button
     }()
@@ -55,7 +55,7 @@ final class SettingTrackerViewController: UIViewController {
         button.layer.masksToBounds = true
         button.setTitle("Создать", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .Gray
+        button.backgroundColor = .yaGray
         button.addTarget(self, action: #selector(didTapCreateButton), for: .touchUpInside)
         button.isEnabled = false
         return button
@@ -82,11 +82,11 @@ final class SettingTrackerViewController: UIViewController {
     private var buttonIsEnable = false {
         willSet {
             if newValue {
-                createButton.backgroundColor = .Black
-                createButton.setTitleColor(.White, for: .normal)
+                createButton.backgroundColor = .yaBlack
+                createButton.setTitleColor(.yaWhite, for: .normal)
                 createButton.isEnabled = true
             } else {
-                createButton.backgroundColor = .Gray
+                createButton.backgroundColor = .yaGray
                 createButton.setTitleColor(.white, for: .normal)
                 createButton.isEnabled = false
             }
@@ -152,7 +152,7 @@ final class SettingTrackerViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .White
+        view.backgroundColor = .yaWhite
         nameTracker.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.delegate = self

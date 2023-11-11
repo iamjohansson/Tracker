@@ -44,7 +44,7 @@ final class TrackerCell: UICollectionViewCell {
         let daysLabel = UILabel()
         daysLabel.translatesAutoresizingMaskIntoConstraints = false
         daysLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        daysLabel.textColor = .Black
+        daysLabel.textColor = .yaBlack
         return daysLabel
     }()
     
@@ -52,7 +52,7 @@ final class TrackerCell: UICollectionViewCell {
         let execButton = UIButton()
         execButton.translatesAutoresizingMaskIntoConstraints = false
         execButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        execButton.tintColor = .White
+        execButton.tintColor = .yaWhite
         execButton.layer.cornerRadius = 17
         execButton.addTarget(self, action: #selector(didTapExecButton), for: .touchUpInside)
         return execButton

@@ -8,7 +8,7 @@ final class TrackerViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Трекеры"
         titleLabel.font = UIFont.systemFont(ofSize: 34, weight: .bold)
-        titleLabel.textColor = .Black
+        titleLabel.textColor = .yaBlack
         return titleLabel
     }()
     
@@ -20,7 +20,7 @@ final class TrackerViewController: UIViewController {
         ), for: .normal)
         plusButton.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
         plusButton.translatesAutoresizingMaskIntoConstraints = false
-        plusButton.tintColor = .Black
+        plusButton.tintColor = .yaBlack
         return plusButton
     }()
     
@@ -35,8 +35,8 @@ final class TrackerViewController: UIViewController {
     private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.tintColor = .Blue
-        datePicker.backgroundColor = .White
+        datePicker.tintColor = .yaBlue
+        datePicker.backgroundColor = .yaWhite
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         datePicker.calendar = Calendar(identifier: .iso8601)
@@ -49,7 +49,7 @@ final class TrackerViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .White
+        collectionView.backgroundColor = .yaWhite
         collectionView.register(TrackerCell.self, forCellWithReuseIdentifier: TrackerCell.identifier)
         collectionView.register(TrackerCategoryHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         return collectionView
@@ -59,7 +59,7 @@ final class TrackerViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        button.backgroundColor = .Blue
+        button.backgroundColor = .yaBlue
         button.setTitle("Фильтры", for: .normal)
         button.layer.cornerRadius = 16
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -108,7 +108,7 @@ final class TrackerViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .White
+        view.backgroundColor = .yaWhite
         hideKeyboard()
         addSubViews()
         applyConstraint()

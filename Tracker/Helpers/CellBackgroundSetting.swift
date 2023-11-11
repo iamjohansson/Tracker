@@ -6,7 +6,7 @@ final class CellBackgroundSetting: UIView {
     private let cellViewBoard: UIView = {
         let cellViewBoard = UIView()
         cellViewBoard.translatesAutoresizingMaskIntoConstraints = false
-        cellViewBoard.backgroundColor = .Gray
+        cellViewBoard.backgroundColor = .yaGray
         cellViewBoard.isHidden = true
         return cellViewBoard
     }()
@@ -27,7 +27,7 @@ final class CellBackgroundSetting: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 16
         layer.masksToBounds = true
-        backgroundColor = .Background
+        backgroundColor = .yaBackground
         
         addSubview(cellViewBoard)
         

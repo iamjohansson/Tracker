@@ -10,9 +10,9 @@ final class TabBarViewController: UITabBarController {
     
     // MARK: - Constructor Method
     private func setupBarItems() {
-        tabBar.backgroundColor = .White
-        tabBar.tintColor = .Blue
-        tabBar.barTintColor = .Gray
+        tabBar.backgroundColor = .yaWhite
+        tabBar.tintColor = .yaBlue
+        tabBar.barTintColor = .yaGray
         
         tabBar.layer.shadowColor = UIColor.black.cgColor
         tabBar.layer.shadowOpacity = 0.3

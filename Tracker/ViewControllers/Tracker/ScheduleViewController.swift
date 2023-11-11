@@ -19,8 +19,8 @@ final class ScheduleViewController: UIViewController {
     private lazy var readyButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = . Black
-        button.setTitleColor(.White, for: .normal)
+        button.backgroundColor = . yaBlack
+        button.setTitleColor(.yaWhite, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.setTitle("Готово", for: .normal)
         button.layer.cornerRadius = 16
@@ -47,7 +47,7 @@ final class ScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Расписание"
-        view.backgroundColor = .White
+        view.backgroundColor = .yaWhite
         setupDelegates()
         addSubView()
         applyConstraint()
