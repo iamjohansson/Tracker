@@ -213,6 +213,7 @@ extension TrackerViewController: TrackerCellDelegate {
                 cell.addOrSubtrack(value: true)
             }
         } else {  // Полностью блокировать не стал, просто уведомим пользователя, что ни-ни
+            cell.isActiveButtonFromDate(active: execButtonIsEnableValue)
             let date = Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd.MM.yyyy"
@@ -243,7 +244,7 @@ extension TrackerViewController: UICollectionViewDataSource {
         let tracker = currentlyTrackers[indexPath.section].trackersArray[indexPath.row]
         let daysCount = completedTrackers.filter { $0.id == tracker.id }.count
         let active = completedTrackers.contains { $0.date == currentDate && $0.id == tracker.id }
-        cell.configure(with: tracker, days: daysCount, active: active)
+        cell.configure(with: tracker, days: daysCount, active: active, enableButton: execButtonIsEnableValue)
         cell.delegate = self
         return cell
     }

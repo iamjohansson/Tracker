@@ -91,7 +91,7 @@ final class TrackerCell: UICollectionViewCell {
         execButton.layer.opacity = 1
     }
     
-    func configure(with tracker: Tracker, days: Int, active: Bool) {
+    func configure(with tracker: Tracker, days: Int, active: Bool, enableButton: Bool) {
         self.tracker = tracker
         self.daysCount = days
         cardView.backgroundColor = tracker.color
@@ -99,6 +99,7 @@ final class TrackerCell: UICollectionViewCell {
         trackerLabel.text = tracker.name
         execButton.backgroundColor = tracker.color
         changeImageButton(active: active)
+        isActiveButtonFromDate(active: enableButton)
     }
     
     func changeImageButton(active: Bool) {
@@ -116,6 +117,16 @@ final class TrackerCell: UICollectionViewCell {
             daysCount += 1
         } else {
             daysCount -= 1
+        }
+    }
+    // Если требуется, можно включить полный блок кнопок
+    func isActiveButtonFromDate(active: Bool) {
+        if active {
+            execButton.layer.opacity = 1
+//            execButton.isEnabled = true
+        } else {
+            execButton.layer.opacity = 0.3
+//            execButton.isEnabled = false
         }
     }
 }
