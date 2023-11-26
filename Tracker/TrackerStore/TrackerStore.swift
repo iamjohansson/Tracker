@@ -6,6 +6,7 @@ protocol TrackerStoreDelegate: AnyObject {
 }
 
 protocol TrackerStoreProtocol {
+    var trackersCount: Int { get }
     var numberOfSections: Int { get }
     func numberOfRowsInSection(_ section: Int) -> Int
     func object(at indexPath: IndexPath) -> Tracker?
@@ -18,10 +19,11 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
     // MARK: - Properties
     weak var delegate: TrackerStoreDelegate?
     private let context: NSManagedObjectContext
+    private let trackerCategoryStore = TrackerCategoryStore()
     
     private lazy var fetchedResultsController: NSFetchedResultsController<TrackerCoreData> = {
         let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \TrackerCoreData.category?.categoryId, ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \TrackerCoreData.category?.categoryId, ascending: true), NSSortDescriptor(keyPath: \TrackerCoreData.createdAt, ascending: true)]
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: context,
@@ -46,72 +48,58 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
     // MARK: - Methods
     func createTracker(from tracker: TrackerCoreData) throws -> Tracker {
         guard
-            let id = tracker.id,
+            let stringID = tracker.trackerId,
+            let id = UUID(uuidString: stringID),
             let name = tracker.name,
             let emoji = tracker.emoji,
-            let color = tracker.color,
-            let sked = WeekDays.reversTransformedSked(value: tracker.sked)
+            let colorHEX = tracker.color,
+            let daysCount = tracker.record
         else { throw TrackerError.decodeError }
-        return Tracker(id: id, name: name, color: color as! UIColor, emoji: emoji, sked: sked)
+        let color = UIColorConvert.convertStringToColor(hex: colorHEX)
+        let sked = WeekDays.reversTransformedSked(value: tracker.sked)
+        print("Sked в криттрекере \(String(describing: sked ))")
+        return Tracker(id: id, name: name, color: color!, emoji: emoji, sked: sked, daysCount: daysCount.count)
     }
     
     func currentlyTrackers(date: Date, searchString: String) throws {
         
         let day = Calendar.current.component(.weekday, from: date)
         let weekdayIndex = day > 1 ? day - 2 : day + 5
-        let matching = (0..<7).map { $0 == weekdayIndex ? "+" : "-" }
-        
+        var matching = ""
+        for index in 0..<7 {
+            if index == weekdayIndex {
+                matching += "1"
+            } else {
+                matching += "."
+            }
+        }
         var predicates = [NSPredicate]()
         predicates.append(NSPredicate(
-            format: "%K == nil OR (%K !=nil AND %K MATCHES[c] %@)",
+            format: "%K == nil OR (%K != nil AND %K MATCHES[c] %@)",
             #keyPath(TrackerCoreData.sked),
             #keyPath(TrackerCoreData.sked),
             #keyPath(TrackerCoreData.sked), matching
         ))
-        
+        print("Предикат \(predicates)")
         if !searchString.isEmpty {
             predicates.append(NSPredicate(
-                format: "%K CONTAINS[cdx] %@",
+                format: "%K CONTAINS[cd] %@",
                 #keyPath(TrackerCoreData.name), searchString
             ))
             
             fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-            try? fetchedResultsController.performFetch()
+            try fetchedResultsController.performFetch()
             delegate?.didUpdate()
         }
     }
     
     func takeTracker(for id: UUID) throws -> TrackerCoreData? {
         fetchedResultsController.fetchRequest.predicate = NSPredicate(
-            format: "%K CONTAINS %@",
-            (\TrackerCoreData.id)._kvcKeyPathString!, id.uuidString
-        )
+            format: "%K == %@",
+            #keyPath(TrackerCoreData.trackerId), id.uuidString)
         try fetchedResultsController.performFetch()
         return fetchedResultsController.fetchedObjects?.first
     }
-    
-//    private func convertColorToData(_ color: UIColor) -> NSData? {
-//        do {
-//            return try NSKeyedArchiver.archivedData(
-//                withRootObject: color,
-//                requiringSecureCoding: false
-//            ) as NSData
-//        } catch {
-//            print("Ошибка при конвертировании цвета в Data: \(TrackerError.decodeError)")
-//            return nil
-//        }
-//    }
-//    
-//    private func convertDataToColor(_ data: NSData) -> UIColor? {
-//        do {
-//            if let color = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data as Data) {
-//                return color
-//            }
-//        } catch {
-//            print("Ошибка при конвертировании Data в цвет: \(TrackerError.decodeError)")
-//            return nil
-//        }
-//    }
     
     // MARK: - FetchResultDelegate
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -121,6 +109,9 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
 
 // MARK: - Extension TrackerStoreProtocol
 extension TrackerStore: TrackerStoreProtocol {
+    var trackersCount: Int {
+        fetchedResultsController.fetchedObjects?.count ?? 0
+    }
     var numberOfSections: Int {
         fetchedResultsController.sections?.count ?? 0
     }
@@ -136,12 +127,14 @@ extension TrackerStore: TrackerStoreProtocol {
     
     func addTracker(tracker: Tracker, category: TrackerCategory) throws {
         let trackerData = TrackerCoreData(context: context)
-        trackerData.id = tracker.id
+        let categoryData = try trackerCategoryStore.takeCategory(with: category.id)
+        trackerData.trackerId = tracker.id.uuidString
+        trackerData.createdAt = Date()
         trackerData.name = tracker.name
         trackerData.emoji = tracker.emoji
-        trackerData.color = tracker.color
+        trackerData.color = UIColorConvert.convertColorToString(color: tracker.color)
         trackerData.sked = WeekDays.transformedSked(value: tracker.sked)
-        // По идее, нужно передавать и категорию
+        trackerData.category = categoryData
         try context.save()
     }
     

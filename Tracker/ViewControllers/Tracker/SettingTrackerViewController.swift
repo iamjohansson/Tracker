@@ -2,7 +2,7 @@ import UIKit
 
 protocol SettingTrackerViewControllerDelegate: AnyObject {
     func didTapCancelButton()
-    func didTapCreateButton(category: String, tracker: Tracker)
+    func didTapCreateButton(category: TrackerCategory, tracker: Tracker)
 }
 
 final class SettingTrackerViewController: UIViewController {
@@ -107,6 +107,7 @@ final class SettingTrackerViewController: UIViewController {
     // MARK: - Properties
     weak var delegate: SettingTrackerViewControllerDelegate?
     private let version: CreatingTrackerViewController.TrackerVersion
+    private let trackerCategoryStore = TrackerCategoryStore()
     private var data: Tracker.Track {
         didSet {
             checkButtonValidation()
@@ -147,7 +148,7 @@ final class SettingTrackerViewController: UIViewController {
         return short.joined(separator: ", ")
     }
     
-    private var category: String? = TrackerCategory.defaultValue[0].name {
+    private lazy var category: TrackerCategory? = trackerCategoryStore.category.randomElement() {
         didSet {
             checkButtonValidation()
         }
@@ -294,7 +295,7 @@ extension SettingTrackerViewController {
         guard let category = category,
               let emoji = data.emoji,
               let color = data.color else { return }
-        let createNewTracker = Tracker(name: data.name, color: color, emoji: emoji, sked: data.sked)
+        let createNewTracker = Tracker(name: data.name, color: color, emoji: emoji, sked: data.sked, daysCount: 0)
         delegate?.didTapCreateButton(category: category, tracker: createNewTracker)
     }
     
@@ -342,10 +343,10 @@ extension SettingTrackerViewController: UITableViewDataSource {
         var position: CellBackgroundSetting.Position
         
         if data.sked == nil {
-            description = category
+            description = category?.name
             position = .common
         } else {
-            description = indexPath.row == 0 ? category : skedString
+            description = indexPath.row == 0 ? category?.name : skedString
             position = indexPath.row == 0 ? .top : .bottom
         }
         cell.configure(name: parametres[indexPath.row], description: description, position: position)

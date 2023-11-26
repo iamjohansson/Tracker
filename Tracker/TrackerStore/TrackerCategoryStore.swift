@@ -9,13 +9,23 @@ final class TrackerCategoryStore: NSObject {
     
     // MARK: - Initializers
     convenience override init() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        self.init(context: context)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            fatalError("Error AppDelegate")
+        }
+        let context = appDelegate.persistentContainer.viewContext
+        do {
+                try self.init(context: context)
+            } catch {
+                fatalError("Failed to initialize with error: \(Error.self)")
+            }
+
     }
     
-    init(context: NSManagedObjectContext) {
+    init(context: NSManagedObjectContext) throws {
         self.context = context
         super.init()
+        
+        try setupCategory(with: context)
     }
     
     // MARK: - Methods
@@ -24,14 +34,15 @@ final class TrackerCategoryStore: NSObject {
         let request = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
         request.predicate = NSPredicate(
             format: "%K == %@",
-            (\TrackerCategoryCoreData.id)._kvcKeyPathString!, id.uuidString)
+            #keyPath(TrackerCategoryCoreData.categoryId), id.uuidString)
         let category = try context.fetch(request)
         return category[0]
     }
     
     private func createCategoryForTrackers(from data: TrackerCategoryCoreData) throws -> TrackerCategory {
         guard let name = data.name,
-              let id = data.categoryId else { throw TrackerError.decodeError }
+              let stringID = data.categoryId,
+              let id = UUID(uuidString: stringID) else { throw TrackerError.decodeError }
         return TrackerCategory(name: name, id: id)
     }
     
@@ -43,12 +54,14 @@ final class TrackerCategoryStore: NSObject {
            }
         let categories = [
             TrackerCategory(name: "Важное"),
-            TrackerCategory(name: "Средней важности")
+            TrackerCategory(name: "Средней важности"),
+            TrackerCategory(name: "Низкой важности")
         ]
         
-        let categoriesCoreData = categories.map { category in
+        _ = categories.map { category in
             let cd = TrackerCategoryCoreData(context: context)
-            cd.categoryId = category.id
+            cd.categoryId = category.id.uuidString
+            cd.createdAt = Date()
             cd.name = category.name
             return cd
         }

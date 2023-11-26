@@ -70,46 +70,28 @@ final class TrackerViewController: UIViewController {
     private var execButtonIsEnableValue = true
     private let defaultPlaceholder = UIStackView()
     private let searchPlaceholder = UIStackView()
-    private var categories: [TrackerCategory] = TrackerCategory.defaultValue
+    private var categories = [TrackerCategory]()
     private var completedTrackers: Set<TrackerRecord> = []
     private var currentDate = Date()
-    private var searchText = ""
+    private let trackerStore = TrackerStore()
+    private let trackerCategoryStore = TrackerCategoryStore()
+    private let trackerRecordStore = TrackerRecordStore()
+    private var searchText = "" {
+        didSet {
+            try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText)
+        }
+    }
     private let geomentricParams = UICollectionView.GeometricParams(
         cellCount: 2,
         leftInset: 16,
         rightInset: 16,
         cellSpacing: 9)
-    private var currentlyTrackers: [TrackerCategory] {
-        let day = Calendar.current.component(.weekday, from: currentDate)
-        var tracker = [TrackerCategory]()
-        for category in categories {
-            let trackersFilter = category.trackersArray.filter { tracker in
-                guard let sked = tracker.sked else { return true }
-                return sked.contains(WeekDays.allCases[day > 1 ? day - 2 : day + 5])
-            }
-            if searchText.isEmpty && !trackersFilter.isEmpty {
-                tracker.append(TrackerCategory(name: category.name, trackersArray: trackersFilter))
-            } else {
-                let filter = trackersFilter.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-                if !filter.isEmpty {
-                    tracker.append(TrackerCategory(name: category.name, trackersArray: filter))
-                }
-            }
-        }
-        
-        if tracker.isEmpty {
-            filterButton.isHidden = true
-        } else {
-            filterButton.isHidden = false
-        }
-        return tracker
-    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yaWhite
-        hideKeyboard()
+//        hideKeyboard()
         addSubViews()
         applyConstraint()
         defaultPlaceholder.configure(name: "starPlaceholder", text: "Что будем отслеживать?")
@@ -117,6 +99,9 @@ final class TrackerViewController: UIViewController {
         placeholderCheckForEmpty()
         placeholderCheckForSearch()
         setupDelegates()
+        try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText)
+        try? trackerRecordStore.takeCompletedTrackers(with: currentDate)
+        showFilterButton()
     }
     
     // MARK: - Layout & Setting
@@ -164,6 +149,8 @@ final class TrackerViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         searchField.delegate = self
+        trackerStore.delegate = self
+        trackerRecordStore.delegate = self
     }
     
 }
@@ -180,6 +167,12 @@ extension TrackerViewController {
     @objc private func didChangeDate(_ sender: UIDatePicker) {
         currentDate = sender.date
         execButtonIsEnableValue = isDateinPast(currentDate)
+        do {
+            try trackerStore.currentlyTrackers(date: currentDate, searchString: searchText)
+            try trackerRecordStore.takeCompletedTrackers(with: currentDate)
+        } catch {
+            print(TrackerError.decodeError)
+        }
         collectionView.reloadData()
     }
     
@@ -188,13 +181,21 @@ extension TrackerViewController {
     }
     
     private func placeholderCheckForEmpty() {
-        let isHidden = currentlyTrackers.isEmpty && searchPlaceholder.isHidden
+        let isHidden = trackerStore.trackersCount == 0 && searchPlaceholder.isHidden
         defaultPlaceholder.isHidden = !isHidden
     }
     
     private func placeholderCheckForSearch() {
-        let isHidden = currentlyTrackers.isEmpty && searchField.text != ""
+        let isHidden = trackerStore.trackersCount == 0 && searchField.text != ""
         searchPlaceholder.isHidden = !isHidden
+    }
+    
+    private func showFilterButton() {
+        if trackerStore.trackersCount == 0 {
+            filterButton.isHidden = true
+        } else {
+            filterButton.isHidden = false
+        }
     }
 }
 
@@ -202,13 +203,13 @@ extension TrackerViewController {
 extension TrackerViewController: TrackerCellDelegate {
     func didTapExecButton(cell: TrackerCell, with tracker: Tracker) {
         if execButtonIsEnableValue == true {
-            let recordingTracker = TrackerRecord(id: tracker.id, date: currentDate)
-            if let index = completedTrackers.firstIndex(where: { $0.date == currentDate && $0.id == tracker.id }) {
-                completedTrackers.remove(at: index)
+            if let recordingTracker = completedTrackers.first(where: { $0.date == currentDate && $0.trackerId == tracker.id }) {
+                try? trackerRecordStore.delete(recordingTracker)
                 cell.changeImageButton(active: false)
                 cell.addOrSubtrack(value: false)
             } else {
-                completedTrackers.insert(recordingTracker)
+                let trackerRecord = TrackerRecord(date: currentDate, trackerId: tracker.id)
+                try? trackerRecordStore.add(trackerRecord)
                 cell.changeImageButton(active: true)
                 cell.addOrSubtrack(value: true)
             }
@@ -218,7 +219,7 @@ extension TrackerViewController: TrackerCellDelegate {
             dateFormatter.dateFormat = "dd.MM.yyyy"
             let todayFormDate = dateFormatter.string(from: date)
             let selectedDate = dateFormatter.string(from: currentDate)
-            let alert = UIAlertController(title: "Сегодня - \(todayFormDate)г.", message: "Нельзя выполнить данное действие - \(selectedDate)г., т.к. данный период времени еще не наступил!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Сегодня - \(todayFormDate)г.", message: "Нельзя выполнить действие - \(selectedDate)г., т.к. данный период времени еще не наступил!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Понятно", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
@@ -229,21 +230,19 @@ extension TrackerViewController: TrackerCellDelegate {
 extension TrackerViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         placeholderCheckForEmpty()
-        return currentlyTrackers.count
+        return trackerStore.numberOfSections
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentlyTrackers[section].trackersArray.count
+        return trackerStore.numberOfRowsInSection(section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell else {
-            return UICollectionViewCell()
-        }
-        let tracker = currentlyTrackers[indexPath.section].trackersArray[indexPath.row]
-        let daysCount = completedTrackers.filter { $0.id == tracker.id }.count
-        let active = completedTrackers.contains { $0.date == currentDate && $0.id == tracker.id }
-        cell.configure(with: tracker, days: daysCount, active: active)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell,
+              let tracker = trackerStore.object(at: indexPath)
+        else { return UICollectionViewCell() }
+        let active = completedTrackers.contains { $0.date == currentDate && $0.trackerId == tracker.id }
+        cell.configure(with: tracker, days: tracker.daysCount, active: active)
         cell.delegate = self
         return cell
     }
@@ -271,7 +270,8 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
         guard
             kind == UICollectionView.elementKindSectionHeader,
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? TrackerCategoryHeader else { return UICollectionReusableView() }
-        let label =  currentlyTrackers[indexPath.section].name
+        guard let label = trackerStore.headerInSection(indexPath.section)
+        else { return UICollectionReusableView() }
         view.configure(title: label)
         return view
     }
@@ -289,15 +289,9 @@ extension TrackerViewController: CreatingTrackerViewControllerDelegate, SettingT
         dismiss(animated: true)
     }
     
-    func didTapCreateButton(category: String, tracker: Tracker) {
+    func didTapCreateButton(category: TrackerCategory, tracker: Tracker) {
         dismiss(animated: true)
-        guard let categoryIndex = categories.firstIndex(where: { $0.name == category }) else { return }
-        let newCardForCategory = TrackerCategory(
-            name: category,
-            trackersArray: categories[categoryIndex].trackersArray + [tracker]
-        )
-        categories[categoryIndex] = newCardForCategory
-        collectionView.reloadData()
+        try? trackerStore.addTracker(tracker: tracker, category: category)
     }
     
     func didCreateTracker(with version: CreatingTrackerViewController.TrackerVersion) {
@@ -328,9 +322,24 @@ extension TrackerViewController: UISearchBarDelegate {
         searchBar.endEditing(true)
         searchBar.setShowsCancelButton(false, animated: true)
         self.searchText = ""
+        searchBar.resignFirstResponder()
         collectionView.reloadData()
         placeholderCheckForSearch()
     }
+}
+
+// MARK: - Extension StoreDelegate
+extension TrackerViewController: TrackerStoreDelegate, TrackerRecordStoreDelegate {
+    func didUpdate() {
+        showFilterButton()
+        collectionView.reloadData()
+    }
+    
+    func didUpdateRecord(records: Set<TrackerRecord>) {
+        completedTrackers = records
+    }
+    
+    
 }
 
 // MARK: - Extension Recognizer
