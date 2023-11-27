@@ -86,11 +86,10 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
                 format: "%K CONTAINS[cd] %@",
                 #keyPath(TrackerCoreData.name), searchString
             ))
-            
-            fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-            try fetchedResultsController.performFetch()
-            delegate?.didUpdate()
         }
+        fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        try fetchedResultsController.performFetch()
+        delegate?.didUpdate()
     }
     
     func takeTracker(for id: UUID) throws -> TrackerCoreData? {

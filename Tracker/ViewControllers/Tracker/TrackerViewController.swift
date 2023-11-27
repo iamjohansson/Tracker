@@ -91,7 +91,7 @@ final class TrackerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yaWhite
-//        hideKeyboard()
+        hideKeyboard()
         addSubViews()
         applyConstraint()
         defaultPlaceholder.configure(name: "starPlaceholder", text: "Что будем отслеживать?")
