@@ -34,6 +34,7 @@ enum WeekDays: String, CaseIterable, Comparable {
         return lhs.rawValue < rhs.rawValue
     }
     
+    // MARK: - WeekDays Converter
     static func transformedSked(value: [WeekDays]?) -> String? {
         guard let value = value else { return nil }
         let index = value.map { self.allCases.firstIndex(of: $0) }
@@ -45,7 +46,6 @@ enum WeekDays: String, CaseIterable, Comparable {
                 result += "0"
             }
         }
-        print("Трансформер \(result)")
         return result
     }
     
@@ -57,7 +57,6 @@ enum WeekDays: String, CaseIterable, Comparable {
             let weekday = self.allCases[index]
             weekdays.append(weekday)
         }
-        print("Реверс трансформер \(weekdays)")
         return weekdays
     }
 }

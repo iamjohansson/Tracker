@@ -57,7 +57,6 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
         else { throw TrackerError.decodeError }
         let color = UIColorConvert.convertStringToColor(hex: colorHEX)
         let sked = WeekDays.reversTransformedSked(value: tracker.sked)
-        print("Sked в криттрекере \(String(describing: sked ))")
         return Tracker(id: id, name: name, color: color!, emoji: emoji, sked: sked, daysCount: daysCount.count)
     }
     
@@ -80,7 +79,6 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
             #keyPath(TrackerCoreData.sked),
             #keyPath(TrackerCoreData.sked), matching
         ))
-        print("Предикат \(predicates)")
         if !searchString.isEmpty {
             predicates.append(NSPredicate(
                 format: "%K CONTAINS[cd] %@",

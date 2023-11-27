@@ -1,6 +1,8 @@
 import UIKit
 
 final class UIColorConvert {
+    
+    // MARK: - Color converter
     static func convertColorToString(color: UIColor) -> String {
         let components = color.cgColor.components ?? []
         let hex = components.reduce("#") {
@@ -22,27 +24,4 @@ final class UIColorConvert {
         }
         return nil
     }
-    
-//        static func convertColorToData(_ color: UIColor) -> NSData? {
-//            do {
-//                return try NSKeyedArchiver.archivedData(
-//                    withRootObject: color,
-//                    requiringSecureCoding: false
-//                ) as NSData
-//            } catch {
-//                print("Ошибка при конвертировании цвета в Data: \(TrackerError.decodeError)")
-//                return nil
-//            }
-//        }
-//
-//        static func convertDataToColor(_ data: NSData) -> UIColor? {
-//            do {
-//                if let color = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data as Data) {
-//                    return color
-//                }
-//            } catch {
-//                print("Ошибка при конвертировании Data в цвет: \(TrackerError.decodeError)")
-//                return nil
-//            }
-//        }
 }
