@@ -76,6 +76,7 @@ extension OnboardingViewController {
     }
 }
 
+// MARK: - Extension DataSource
 extension OnboardingViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let vcIndex = pages.firstIndex(of: viewController) else { return nil }
@@ -92,6 +93,7 @@ extension OnboardingViewController: UIPageViewControllerDataSource {
     }
 }
 
+// MARK: - Extension Delegate
 extension OnboardingViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let currentViewController = pageViewController.viewControllers?.first,
