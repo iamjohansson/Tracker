@@ -2,12 +2,10 @@ import Foundation
 
 struct TrackerCategory {
     let name: String
-    let trackersArray: [Tracker]
-}
-
-extension TrackerCategory {
-    static let defaultValue: [TrackerCategory] =
-    [
-        TrackerCategory(name: "Важное", trackersArray: [])
-    ]
+    let id: UUID
+    
+    init(name: String, id: UUID = UUID()) {
+        self.name = name
+        self.id = id
+    }
 }

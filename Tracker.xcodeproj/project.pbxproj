@@ -11,6 +11,14 @@
 		846A49FE2AFC0000007B1204 /* TrackerCategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */; };
 		846A4A002AFC1DFC007B1204 /* Int + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */; };
 		84811F1E2AFD696D00C396F3 /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F1D2AFD696D00C396F3 /* UIStackView + Extension.swift */; };
+		84811F202B00E1D400C396F3 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F1F2B00E1D400C396F3 /* EmojiCell.swift */; };
+		84811F222B00E52700C396F3 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F212B00E52700C396F3 /* ColorCell.swift */; };
+		84811F242B00F2B000C396F3 /* CellSelectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F232B00F2B000C396F3 /* CellSelectionProtocol.swift */; };
+		84811F4A2B010FD400C396F3 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84811F482B010FD400C396F3 /* CoreData.xcdatamodeld */; };
+		84811F4D2B0D14DD00C396F3 /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F4C2B0D14DD00C396F3 /* TrackerStore.swift */; };
+		84811F4F2B0D14EC00C396F3 /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F4E2B0D14EC00C396F3 /* TrackerCategoryStore.swift */; };
+		84811F512B0D14F900C396F3 /* TrackerRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F502B0D14F900C396F3 /* TrackerRecordStore.swift */; };
+		84903CDB2B0FED9F0032B773 /* UIColorConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84903CDA2B0FED9F0032B773 /* UIColorConvert.swift */; };
 		84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B42AEE64A100DD8B62 /* AppDelegate.swift */; };
 		84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B62AEE64A100DD8B62 /* SceneDelegate.swift */; };
 		84C193B92AEE64A100DD8B62 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B82AEE64A100DD8B62 /* TabBarViewController.swift */; };
@@ -38,6 +46,14 @@
 		846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryHeader.swift; sourceTree = "<group>"; };
 		846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + Extension.swift"; sourceTree = "<group>"; };
 		84811F1D2AFD696D00C396F3 /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
+		84811F1F2B00E1D400C396F3 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
+		84811F212B00E52700C396F3 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		84811F232B00F2B000C396F3 /* CellSelectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSelectionProtocol.swift; sourceTree = "<group>"; };
+		84811F492B010FD400C396F3 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		84811F4C2B0D14DD00C396F3 /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
+		84811F4E2B0D14EC00C396F3 /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
+		84811F502B0D14F900C396F3 /* TrackerRecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordStore.swift; sourceTree = "<group>"; };
+		84903CDA2B0FED9F0032B773 /* UIColorConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorConvert.swift; sourceTree = "<group>"; };
 		84C193B12AEE64A100DD8B62 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C193B42AEE64A100DD8B62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84C193B62AEE64A100DD8B62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +89,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84811F4B2B0D14A600C396F3 /* TrackerStore */ = {
+			isa = PBXGroup;
+			children = (
+				84811F4C2B0D14DD00C396F3 /* TrackerStore.swift */,
+				84811F4E2B0D14EC00C396F3 /* TrackerCategoryStore.swift */,
+				84811F502B0D14F900C396F3 /* TrackerRecordStore.swift */,
+			);
+			path = TrackerStore;
+			sourceTree = "<group>";
+		};
 		84C193A82AEE64A100DD8B62 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +120,7 @@
 			children = (
 				84C193B42AEE64A100DD8B62 /* AppDelegate.swift */,
 				84C193B62AEE64A100DD8B62 /* SceneDelegate.swift */,
+				84811F4B2B0D14A600C396F3 /* TrackerStore */,
 				84C194192AF2C80000DD8B62 /* Models */,
 				84C194242AF692BD00DD8B62 /* Cells */,
 				84C193CA2AEEAAFB00DD8B62 /* ViewControllers */,
@@ -108,6 +135,7 @@
 			children = (
 				84C193BD2AEE64B200DD8B62 /* Assets.xcassets */,
 				84C193BF2AEE64B200DD8B62 /* LaunchScreen.storyboard */,
+				84811F482B010FD400C396F3 /* CoreData.xcdatamodeld */,
 				84C193C22AEE64B200DD8B62 /* Info.plist */,
 			);
 			path = Resources;
@@ -132,6 +160,8 @@
 				84811F1D2AFD696D00C396F3 /* UIStackView + Extension.swift */,
 				846A49FB2AFBFF3F007B1204 /* UICollection + Extension.swift */,
 				846A49FF2AFC1DFC007B1204 /* Int + Extension.swift */,
+				84811F232B00F2B000C396F3 /* CellSelectionProtocol.swift */,
+				84903CDA2B0FED9F0032B773 /* UIColorConvert.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -181,6 +211,8 @@
 				84C194252AF692D600DD8B62 /* TrackerCell.swift */,
 				84C2BF172AF7BC7A0084CDE9 /* SettingTableCell.swift */,
 				84C2BF3F2AF822DE0084CDE9 /* ScheduleCell.swift */,
+				84811F1F2B00E1D400C396F3 /* EmojiCell.swift */,
+				84811F212B00E52700C396F3 /* ColorCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -263,19 +295,27 @@
 				84C2BF402AF822DE0084CDE9 /* ScheduleCell.swift in Sources */,
 				84C2BF3E2AF80A0C0084CDE9 /* CellBackgroundSetting.swift in Sources */,
 				84C2BF3A2AF7FBA90084CDE9 /* TextFieldSetting.swift in Sources */,
+				84811F512B0D14F900C396F3 /* TrackerRecordStore.swift in Sources */,
 				84C1941D2AF2CA4400DD8B62 /* WeekDays.swift in Sources */,
+				84811F242B00F2B000C396F3 /* CellSelectionProtocol.swift in Sources */,
 				84C193B92AEE64A100DD8B62 /* TabBarViewController.swift in Sources */,
+				84811F4D2B0D14DD00C396F3 /* TrackerStore.swift in Sources */,
 				846A49FE2AFC0000007B1204 /* TrackerCategoryHeader.swift in Sources */,
 				84C193CD2AEEABF500DD8B62 /* UIColor + Extension.swift in Sources */,
 				84C194262AF692D600DD8B62 /* TrackerCell.swift in Sources */,
 				846A49FC2AFBFF3F007B1204 /* UICollection + Extension.swift in Sources */,
 				84C194212AF2CDED00DD8B62 /* TrackerRecord.swift in Sources */,
+				84811F4A2B010FD400C396F3 /* CoreData.xcdatamodeld in Sources */,
 				84C193D42AEEAFF700DD8B62 /* StatisticViewController.swift in Sources */,
 				84C2BF182AF7BC7A0084CDE9 /* SettingTableCell.swift in Sources */,
+				84811F4F2B0D14EC00C396F3 /* TrackerCategoryStore.swift in Sources */,
+				84811F222B00E52700C396F3 /* ColorCell.swift in Sources */,
+				84903CDB2B0FED9F0032B773 /* UIColorConvert.swift in Sources */,
 				84811F1E2AFD696D00C396F3 /* UIStackView + Extension.swift in Sources */,
 				84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */,
 				84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */,
 				84C194282AF6A97800DD8B62 /* CreatingTrackerViewController.swift in Sources */,
+				84811F202B00E1D400C396F3 /* EmojiCell.swift in Sources */,
 				84C1941B2AF2C82700DD8B62 /* Tracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -496,6 +536,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84811F482B010FD400C396F3 /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84811F492B010FD400C396F3 /* CoreData.xcdatamodel */,
+			);
+			currentVersion = 84811F492B010FD400C396F3 /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 84C193A92AEE64A100DD8B62 /* Project object */;
 }

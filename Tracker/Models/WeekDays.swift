@@ -33,4 +33,30 @@ enum WeekDays: String, CaseIterable, Comparable {
     static func < (lhs: WeekDays, rhs: WeekDays) -> Bool {
         return lhs.rawValue < rhs.rawValue
     }
+    
+    // MARK: - WeekDays Converter
+    static func transformedSked(value: [WeekDays]?) -> String? {
+        guard let value = value else { return nil }
+        let index = value.map { self.allCases.firstIndex(of: $0) }
+        var result = ""
+        for i in 0..<7 {
+            if index.contains(i) {
+                result += "1"
+            } else {
+                result += "0"
+            }
+        }
+        return result
+    }
+    
+    static func reversTransformedSked(value: String?) -> [WeekDays]? {
+        guard let value = value else { return nil }
+        var weekdays = [WeekDays]()
+        for (index,char) in value.enumerated() {
+            guard char == "1" else { continue }
+            let weekday = self.allCases[index]
+            weekdays.append(weekday)
+        }
+        return weekdays
+    }
 }
