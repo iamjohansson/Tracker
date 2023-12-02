@@ -39,6 +39,8 @@
 		84C2BF3C2AF806C00084CDE9 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF3B2AF806C00084CDE9 /* ScheduleViewController.swift */; };
 		84C2BF3E2AF80A0C0084CDE9 /* CellBackgroundSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */; };
 		84C2BF402AF822DE0084CDE9 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF3F2AF822DE0084CDE9 /* ScheduleCell.swift */; };
+		84CBCD8F2B1B4EE400554884 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD8E2B1B4EE400554884 /* OnboardingViewController.swift */; };
+		84CBCD912B1B51B500554884 /* OnboardingPageSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD902B1B51B500554884 /* OnboardingPageSetting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +78,8 @@
 		84C2BF3B2AF806C00084CDE9 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellBackgroundSetting.swift; sourceTree = "<group>"; };
 		84C2BF3F2AF822DE0084CDE9 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		84CBCD8E2B1B4EE400554884 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		84CBCD902B1B51B500554884 /* OnboardingPageSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageSetting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 		84C193CA2AEEAAFB00DD8B62 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				84CBCD8D2B1B4E2500554884 /* Onboarding */,
 				84C193CE2AEEAE0C00DD8B62 /* TabBar */,
 				84C193CF2AEEAE2A00DD8B62 /* Tracker */,
 				84C193D22AEEAFC000DD8B62 /* Statistic */,
@@ -154,6 +159,8 @@
 		84C193CB2AEEABA300DD8B62 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */,
+				84CBCD902B1B51B500554884 /* OnboardingPageSetting.swift */,
 				84C193CC2AEEABF500DD8B62 /* UIColor + Extension.swift */,
 				84C2BF392AF7FBA90084CDE9 /* TextFieldSetting.swift */,
 				84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */,
@@ -181,7 +188,6 @@
 				84C194272AF6A97800DD8B62 /* CreatingTrackerViewController.swift */,
 				84C194292AF6BF0200DD8B62 /* SettingTrackerViewController.swift */,
 				84C2BF3B2AF806C00084CDE9 /* ScheduleViewController.swift */,
-				846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -215,6 +221,14 @@
 				84811F212B00E52700C396F3 /* ColorCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		84CBCD8D2B1B4E2500554884 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				84CBCD8E2B1B4EE400554884 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,9 +321,11 @@
 				84C194212AF2CDED00DD8B62 /* TrackerRecord.swift in Sources */,
 				84811F4A2B010FD400C396F3 /* CoreData.xcdatamodeld in Sources */,
 				84C193D42AEEAFF700DD8B62 /* StatisticViewController.swift in Sources */,
+				84CBCD912B1B51B500554884 /* OnboardingPageSetting.swift in Sources */,
 				84C2BF182AF7BC7A0084CDE9 /* SettingTableCell.swift in Sources */,
 				84811F4F2B0D14EC00C396F3 /* TrackerCategoryStore.swift in Sources */,
 				84811F222B00E52700C396F3 /* ColorCell.swift in Sources */,
+				84CBCD8F2B1B4EE400554884 /* OnboardingViewController.swift in Sources */,
 				84903CDB2B0FED9F0032B773 /* UIColorConvert.swift in Sources */,
 				84811F1E2AFD696D00C396F3 /* UIStackView + Extension.swift in Sources */,
 				84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */,
