@@ -93,6 +93,12 @@ final class AddCategoryViewController: UIViewController {
 
 // MARK: - Extension TextField
 extension AddCategoryViewController: UITextFieldDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

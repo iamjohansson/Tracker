@@ -65,6 +65,7 @@ final class CategoryViewModel: TrackerCategoryStoreDelegate {
             let categories = try trackerCategoryStore.categoriesCD.map {
                 try trackerCategoryStore.createCategoryForTrackers(from: $0)
             }
+            return categories
         } catch {
             return []
         }
