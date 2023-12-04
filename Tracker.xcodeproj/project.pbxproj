@@ -45,6 +45,8 @@
 		84CBCD962B1C8F1B00554884 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD952B1C8F1B00554884 /* AddCategoryViewController.swift */; };
 		84CBCD982B1C8F5F00554884 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD972B1C8F5F00554884 /* CategoryViewController.swift */; };
 		84CBCD9C2B1C998C00554884 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD9B2B1C998C00554884 /* CategoryViewModel.swift */; };
+		84CBCD9E2B1E531400554884 /* WindowNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD9D2B1E531400554884 /* WindowNavigationViewController.swift */; };
+		84CBCDA12B1E537700554884 /* UserDefaultsBacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCDA02B1E537700554884 /* UserDefaultsBacked.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +90,8 @@
 		84CBCD952B1C8F1B00554884 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		84CBCD972B1C8F5F00554884 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		84CBCD9B2B1C998C00554884 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		84CBCD9D2B1E531400554884 /* WindowNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowNavigationViewController.swift; sourceTree = "<group>"; };
+		84CBCDA02B1E537700554884 /* UserDefaultsBacked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsBacked.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,7 @@
 		84C193CA2AEEAAFB00DD8B62 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				84CBCD9F2B1E534100554884 /* WindowNavigation */,
 				84CBCD8D2B1B4E2500554884 /* Onboarding */,
 				84C193CE2AEEAE0C00DD8B62 /* TabBar */,
 				84C193CF2AEEAE2A00DD8B62 /* Tracker */,
@@ -267,6 +272,15 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		84CBCD9F2B1E534100554884 /* WindowNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				84CBCD9D2B1E531400554884 /* WindowNavigationViewController.swift */,
+				84CBCDA02B1E537700554884 /* UserDefaultsBacked.swift */,
+			);
+			path = WindowNavigation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -355,6 +369,7 @@
 				84C193CD2AEEABF500DD8B62 /* UIColor + Extension.swift in Sources */,
 				84CBCD9C2B1C998C00554884 /* CategoryViewModel.swift in Sources */,
 				84C194262AF692D600DD8B62 /* TrackerCell.swift in Sources */,
+				84CBCDA12B1E537700554884 /* UserDefaultsBacked.swift in Sources */,
 				846A49FC2AFBFF3F007B1204 /* UICollection + Extension.swift in Sources */,
 				84C194212AF2CDED00DD8B62 /* TrackerRecord.swift in Sources */,
 				84811F4A2B010FD400C396F3 /* CoreData.xcdatamodeld in Sources */,
@@ -369,6 +384,7 @@
 				84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */,
 				84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */,
 				84CBCD982B1C8F5F00554884 /* CategoryViewController.swift in Sources */,
+				84CBCD9E2B1E531400554884 /* WindowNavigationViewController.swift in Sources */,
 				84C194282AF6A97800DD8B62 /* CreatingTrackerViewController.swift in Sources */,
 				84811F202B00E1D400C396F3 /* EmojiCell.swift in Sources */,
 				84C1941B2AF2C82700DD8B62 /* Tracker.swift in Sources */,

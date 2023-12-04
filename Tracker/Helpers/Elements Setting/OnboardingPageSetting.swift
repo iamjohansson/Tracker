@@ -24,6 +24,8 @@ final class OnboardingPageSetting: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        addSubView()
+        applyConstraint()
     }
     
     // MARK: - Layout & Setting

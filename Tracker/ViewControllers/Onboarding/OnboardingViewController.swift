@@ -29,6 +29,7 @@ final class OnboardingViewController: UIPageViewController {
     
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.numberOfPages = pages.count
         pageControl.currentPage = 0
         pageControl.currentPageIndicatorTintColor = .yaBlack
@@ -38,9 +39,9 @@ final class OnboardingViewController: UIPageViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupDelegates()
         addSubViews()
         applyConstraint()
-        setupDelegates()
     }
     
     // MARK: - Layout & Setting
@@ -72,7 +73,9 @@ final class OnboardingViewController: UIPageViewController {
 // MARK: - Actions & Methods
 extension OnboardingViewController {
     @objc private func didTapButton() {
-        // настроить переход экрана
+        let tabBarViewController = TabBarViewController()
+        tabBarViewController.modalPresentationStyle = .fullScreen
+        present(tabBarViewController, animated: true)
     }
 }
 
@@ -88,7 +91,7 @@ extension OnboardingViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let vcIndex = pages.firstIndex(of: viewController) else { return nil }
         let nextIndex = vcIndex + 1
-        guard nextIndex >= 0 else { return pages.first }
+        guard nextIndex < pages.count else { return pages.first }
         return pages[nextIndex]
     }
 }
