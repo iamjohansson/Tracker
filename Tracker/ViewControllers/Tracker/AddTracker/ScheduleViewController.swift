@@ -19,7 +19,7 @@ final class ScheduleViewController: UIViewController {
     private lazy var readyButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = . yaBlack
+        button.backgroundColor = .yaBlack
         button.setTitleColor(.yaWhite, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.setTitle("Готово", for: .normal)
