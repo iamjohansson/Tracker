@@ -45,7 +45,7 @@ final class CategoryCell: UITableViewCell {
 }
 
 // MARK: - Extension (Layout & Setting)
-extension CategoryCell {
+private extension CategoryCell {
     func addSubViews() {
         [cellView, nameLabel, categoryMark].forEach { contentView.addSubview($0) }
     }

@@ -1,6 +1,6 @@
 import UIKit
 
-final class OnboardingPageSetting: UIViewController {
+final class OnboardingSinglePageViewController: UIViewController {
     
     // MARK: - Elements
     lazy var onboardImage: UIImageView = {

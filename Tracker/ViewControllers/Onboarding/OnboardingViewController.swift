@@ -4,11 +4,11 @@ final class OnboardingViewController: UIPageViewController {
     
     // MARK: - Elements
     private lazy var pages: [UIViewController] = {
-        let firstOnboardingPage = OnboardingPageSetting()
+        let firstOnboardingPage = OnboardingSinglePageViewController()
         firstOnboardingPage.onboardImage.image = UIImage(named: "onboardImageFirst")
         firstOnboardingPage.textLabel.text = "Отслеживайте только то, что хотите"
         
-        let secondOnboardingPage = OnboardingPageSetting()
+        let secondOnboardingPage = OnboardingSinglePageViewController()
         secondOnboardingPage.onboardImage.image = UIImage(named: "onboardImageSecond")
         secondOnboardingPage.textLabel.text = "Даже если это не литры воды и йога"
         

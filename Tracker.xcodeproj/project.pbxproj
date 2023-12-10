@@ -40,7 +40,7 @@
 		84C2BF3E2AF80A0C0084CDE9 /* CellBackgroundSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */; };
 		84C2BF402AF822DE0084CDE9 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2BF3F2AF822DE0084CDE9 /* ScheduleCell.swift */; };
 		84CBCD8F2B1B4EE400554884 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD8E2B1B4EE400554884 /* OnboardingViewController.swift */; };
-		84CBCD912B1B51B500554884 /* OnboardingPageSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD902B1B51B500554884 /* OnboardingPageSetting.swift */; };
+		84CBCD912B1B51B500554884 /* OnboardingSinglePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD902B1B51B500554884 /* OnboardingSinglePageViewController.swift */; };
 		84CBCD942B1B6C1900554884 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD932B1B6C1900554884 /* CategoryCell.swift */; };
 		84CBCD962B1C8F1B00554884 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD952B1C8F1B00554884 /* AddCategoryViewController.swift */; };
 		84CBCD982B1C8F5F00554884 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD972B1C8F5F00554884 /* CategoryViewController.swift */; };
@@ -85,7 +85,7 @@
 		84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellBackgroundSetting.swift; sourceTree = "<group>"; };
 		84C2BF3F2AF822DE0084CDE9 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		84CBCD8E2B1B4EE400554884 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		84CBCD902B1B51B500554884 /* OnboardingPageSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageSetting.swift; sourceTree = "<group>"; };
+		84CBCD902B1B51B500554884 /* OnboardingSinglePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSinglePageViewController.swift; sourceTree = "<group>"; };
 		84CBCD932B1B6C1900554884 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		84CBCD952B1C8F1B00554884 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		84CBCD972B1C8F5F00554884 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				846A49FD2AFC0000007B1204 /* TrackerCategoryHeader.swift */,
-				84CBCD902B1B51B500554884 /* OnboardingPageSetting.swift */,
+				84CBCD902B1B51B500554884 /* OnboardingSinglePageViewController.swift */,
 				84C2BF392AF7FBA90084CDE9 /* TextFieldSetting.swift */,
 				84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */,
 			);
@@ -374,7 +374,7 @@
 				84C194212AF2CDED00DD8B62 /* TrackerRecord.swift in Sources */,
 				84811F4A2B010FD400C396F3 /* CoreData.xcdatamodeld in Sources */,
 				84C193D42AEEAFF700DD8B62 /* StatisticViewController.swift in Sources */,
-				84CBCD912B1B51B500554884 /* OnboardingPageSetting.swift in Sources */,
+				84CBCD912B1B51B500554884 /* OnboardingSinglePageViewController.swift in Sources */,
 				84C2BF182AF7BC7A0084CDE9 /* SettingTableCell.swift in Sources */,
 				84811F4F2B0D14EC00C396F3 /* TrackerCategoryStore.swift in Sources */,
 				84811F222B00E52700C396F3 /* ColorCell.swift in Sources */,
