@@ -1,0 +1,64 @@
+// TrackerViewController
+"trackerVC_title" = "Трекеры";
+"trackerVC_search" = "Поиск";
+"trackerVC_placeholderTextDefault" = "Что будем отслеживать?";
+"trackerVC_placeholderTextSearch" = "Ничего не найдено";
+"trackerVC_filter" = "Фильтры";
+"trackerVC_datepicker" = "ru_RU";
+
+// StatisticViewController
+"statisticVC_title" = "Статистика";
+"statisticVC_placeholderText" = "Анализировать пока нечего";
+
+// CreatingTrackerViewController
+"creatingVC_habitButton" = "Привычка";
+"creatingVC_irregularButton" = "Нерегулярное событие";
+"creatingVC_title" = "Создание трекера";
+"creatingVC_HabitTitle" = "Новая привычка";
+"creatingVC_IrregularTitle" = "Новое нерегулярное событие";
+
+// SettingTrackerViewController
+"settingTrackerVC_nameTrackerPlaceholder" = "Введите название трекера";
+"settingTrackerVC_limitMessage" = "Ограничение 38 символов";
+"settingTrackerVC_cancelButton" = "Отменить";
+"settingTrackerVC_createButton" = "Создать";
+"settingTrackerVC_skedString" = "Каждый день";
+"settingTrackerVC_categoryParamLabel" = "Категория";
+"settingTrackerVC_skedParamLabel" = "Расписание";
+"settingTrackerVC_emojiTitle" = "Emoji";
+"settingTrackerVC_colorTitle" = "Цвет";
+
+// CategoryViewController
+"categoryVC_addCategoryButton" = "Добавить категорию";
+"categoryVC_placeholderText" = "Привычки и события можно \n объединить по смыслу";
+"categoryVC_alertMessageWhenDeleteCategory" = "Эта категория точно не нужна?";
+"categoryVC_alertActionDelete" = "Удалить";
+"categoryVC_alertActionCancel" = "Отменить";
+"categoryVC_alertActionEdit" = "Редактировать";
+
+// AddCategoryViewController
+"addCategoryVC_nameCategoryPlaceholder" = "Введите название категории";
+"addCategoryVC_confirmButtonText" = "Готово";
+"addCategoryVC_title" = "Новая категория";
+
+// OnboardingViewController
+"onboardingVC_firstPageText" = "Отслеживайте только то, что хотите";
+"onboardingVC_secondPageText" = "Даже если это не литры воды и йога";
+"onboardingVC_button" = "Вот это технологии!";
+
+// WeekDays
+"monday" = "Понедельник";
+"tuesday" = "Вторник";
+"wednesday" = "Среда";
+"thursday" = "Четверг";
+"friday" = "Пятница";
+"saturday" = "Суббота";
+"sunday" = "Воскресенье";
+
+"mondayShort" = "Пн";
+"tuesdayShort" = "Вт";
+"wednesdayShort" = "Ср";
+"thursdayShort" = "Чт";
+"fridayShort" = "Пт";
+"saturdayShort" = "Сб";
+"sundayShort" = "Вс";

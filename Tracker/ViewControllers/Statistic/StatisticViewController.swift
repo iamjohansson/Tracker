@@ -6,7 +6,7 @@ final class StatisticViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Статистика"
+        titleLabel.text = "statisticVC_title".localized
         titleLabel.font = UIFont.systemFont(ofSize: 34, weight: .bold)
         titleLabel.textColor = .yaBlack
         return titleLabel
@@ -21,7 +21,7 @@ final class StatisticViewController: UIViewController {
         view.backgroundColor = .yaWhite
         addSubView()
         applyConstraint()
-        statisticPlaceholder.configure(name: "cryPlaceholder", text: "Анализировать пока нечего")
+        statisticPlaceholder.configure(name: "cryPlaceholder", text: "statisticVC_placeholderText".localized)
     }
     
     // MARK: - Layout & Setting

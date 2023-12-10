@@ -6,7 +6,7 @@ final class TrackerViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Трекеры"
+        titleLabel.text = "trackerVC_title".localized
         titleLabel.font = UIFont.systemFont(ofSize: 34, weight: .bold)
         titleLabel.textColor = .yaBlack
         return titleLabel
@@ -28,7 +28,7 @@ final class TrackerViewController: UIViewController {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "Поиск"
+        searchBar.placeholder = "trackerVC_search".localized
         return searchBar
     }()
     
@@ -40,7 +40,7 @@ final class TrackerViewController: UIViewController {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         datePicker.calendar = Calendar(identifier: .iso8601)
-        datePicker.locale = Locale(identifier: "ru_RU")
+        datePicker.locale = Locale(identifier: "trackerVC_datepicker".localized)
         
         datePicker.addTarget(self, action: #selector(didChangeDate), for: .valueChanged)
         return datePicker
@@ -60,7 +60,7 @@ final class TrackerViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
         button.backgroundColor = .yaBlue
-        button.setTitle("Фильтры", for: .normal)
+        button.setTitle("trackerVC_filter".localized, for: .normal)
         button.layer.cornerRadius = 16
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         return button
@@ -94,8 +94,8 @@ final class TrackerViewController: UIViewController {
         hideKeyboard()
         addSubViews()
         applyConstraint()
-        defaultPlaceholder.configure(name: "starPlaceholder", text: "Что будем отслеживать?")
-        searchPlaceholder.configure(name: "monoclePlaceholder", text: "Ничего не найдено")
+        defaultPlaceholder.configure(name: "starPlaceholder", text: "trackerVC_placeholderTextDefault".localized)
+        searchPlaceholder.configure(name: "monoclePlaceholder", text: "trackerVC_placeholderTextSearch".localized)
         placeholderCheckForEmpty()
         placeholderCheckForSearch()
         setupDelegates()

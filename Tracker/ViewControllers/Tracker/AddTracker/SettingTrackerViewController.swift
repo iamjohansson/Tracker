@@ -21,7 +21,7 @@ final class SettingTrackerViewController: UIViewController {
     }()
     
     private lazy var nameTracker: UITextField = {
-        let nameTracker = TextFieldSetting(placeholder: "Введите название трекера")
+        let nameTracker = TextFieldSetting(placeholder: "settingTrackerVC_nameTrackerPlaceholder".localized)
         nameTracker.addTarget(self, action: #selector(didChangeTextOnNameTracker), for: .editingChanged)
         return nameTracker
     }()
@@ -31,7 +31,7 @@ final class SettingTrackerViewController: UIViewController {
         limit.translatesAutoresizingMaskIntoConstraints = false
         limit.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         limit.textColor = .yaRed
-        limit.text = "Ограничение 38 символов"
+        limit.text = "settingTrackerVC_limitMessage".localized
         return limit
     }()
     
@@ -72,7 +72,7 @@ final class SettingTrackerViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
-        button.setTitle("Отменить", for: .normal)
+        button.setTitle("settingTrackerVC_cancelButton".localized, for: .normal)
         button.setTitleColor(.yaRed, for: .normal)
         button.backgroundColor = .yaWhite
         button.layer.borderWidth = 1
@@ -87,7 +87,7 @@ final class SettingTrackerViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
-        button.setTitle("Создать", for: .normal)
+        button.setTitle("settingTrackerVC_createButton".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .yaGray
         button.addTarget(self, action: #selector(didTapCreateButton), for: .touchUpInside)
@@ -143,7 +143,7 @@ final class SettingTrackerViewController: UIViewController {
     
     private var skedString: String? {
         guard let sked = data.sked else { return nil }
-        if sked.count == 7 { return "Каждый день" }
+        if sked.count == 7 { return "settingTrackerVC_skedString".localized }
         let short: [String] = sked.map { $0.shortcut }
         return short.joined(separator: ", ")
     }
@@ -154,7 +154,10 @@ final class SettingTrackerViewController: UIViewController {
         }
     }
     
-    private let parametres = ["Категория", "Расписание"]
+    private let parametres = [
+        "settingTrackerVC_categoryParamLabel".localized,
+        "settingTrackerVC_skedParamLabel".localized
+    ]
     private let emoji = [
         "🙂", "😻", "🌺", "🐶", "❤️", "😱",
         "😇", "😡", "🥶", "🤔", "🙌", "🍔",
@@ -236,7 +239,7 @@ final class SettingTrackerViewController: UIViewController {
             nameTracker.heightAnchor.constraint(equalToConstant: 75),
             limitMessage.centerXAnchor.constraint(equalTo: nameTracker.centerXAnchor),
             limitMessage.topAnchor.constraint(equalTo: nameTracker.bottomAnchor, constant: 8),
-            optionsTableView.heightAnchor.constraint(equalToConstant: title == "Новая привычка" ? 150 : 75),
+            optionsTableView.heightAnchor.constraint(equalToConstant: title == "creatingVC_HabitTitle".localized ? 150 : 75),
             optionsTableView.leadingAnchor.constraint(equalTo: nameTracker.leadingAnchor),
             optionsTableView.trailingAnchor.constraint(equalTo: nameTracker.trailingAnchor),
             emojiCollectionView.topAnchor.constraint(equalTo: optionsTableView.bottomAnchor, constant: 32),
@@ -258,9 +261,9 @@ final class SettingTrackerViewController: UIViewController {
     private func setTitle() {
         switch version {
         case .habit:
-            title = "Новая привычка"
+            title = "creatingVC_HabitTitle".localized
         case .event:
-            title = "Новое нерегулярное событие"
+            title = "creatingVC_IrregularTitle".localized
         }
     }
     
@@ -456,9 +459,9 @@ extension SettingTrackerViewController: UICollectionViewDelegateFlowLayout {
         var label: String
         switch collectionView {
         case emojiCollectionView:
-            label = "Emoji"
+            label = "settingTrackerVC_emojiTitle".localized
         case colorCollectionView:
-            label = "Цвет"
+            label = "settingTrackerVC_colorTitle".localized
         default:
             label = ""
         }

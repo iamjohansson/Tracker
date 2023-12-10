@@ -6,11 +6,11 @@ final class OnboardingViewController: UIPageViewController {
     private lazy var pages: [UIViewController] = {
         let firstOnboardingPage = OnboardingSinglePageViewController()
         firstOnboardingPage.onboardImage.image = UIImage(named: "onboardImageFirst")
-        firstOnboardingPage.textLabel.text = "Отслеживайте только то, что хотите"
+        firstOnboardingPage.textLabel.text = "onboardingVC_firstPageText".localized
         
         let secondOnboardingPage = OnboardingSinglePageViewController()
         secondOnboardingPage.onboardImage.image = UIImage(named: "onboardImageSecond")
-        secondOnboardingPage.textLabel.text = "Даже если это не литры воды и йога"
+        secondOnboardingPage.textLabel.text = "onboardingVC_secondPageText".localized
         
         return [firstOnboardingPage, secondOnboardingPage]
     }()
@@ -20,7 +20,7 @@ final class OnboardingViewController: UIPageViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .yaBlack
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.setTitle("Вот это технологии!", for: .normal)
+        button.setTitle("onboardingVC_button".localized, for: .normal)
         button.setTitleColor(.yaWhite, for: .normal)
         button.layer.cornerRadius = 16
         button.addTarget(nil, action: #selector(didTapButton), for: .touchUpInside)
