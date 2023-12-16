@@ -63,7 +63,7 @@ final class TrackerCell: UICollectionViewCell {
     private var tracker: Tracker?
     private var daysCount = 0 {
         willSet {
-            daysLabel.text = newValue.daysString()
+            daysLabel.text = String.localizedStringWithFormat("AmountDays".localized, newValue)
         }
     }
     

@@ -5,6 +5,9 @@
 "trackerVC_placeholderTextSearch" = "Nothing found";
 "trackerVC_filter" = "Filters";
 "trackerVC_datepicker" = "en_GB";
+"trackerVC_alertTitle" = "Today is %@";
+"trackerVC_alertMessage" = "Action cannot be completed on %@";
+"trackerVC_alertActionTitle" = "Ok";
 
 // StatisticViewController
 "statisticVC_title" = "Statistics";

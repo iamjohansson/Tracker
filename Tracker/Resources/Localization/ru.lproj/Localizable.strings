@@ -5,6 +5,9 @@
 "trackerVC_placeholderTextSearch" = "Ничего не найдено";
 "trackerVC_filter" = "Фильтры";
 "trackerVC_datepicker" = "ru_RU";
+"trackerVC_alertTitle" = "Сегодня %@";
+"trackerVC_alertMessage" = "Нельзя выполнить действие %@";
+"trackerVC_alertActionTitle" = "Понятно";
 
 // StatisticViewController
 "statisticVC_title" = "Статистика";
