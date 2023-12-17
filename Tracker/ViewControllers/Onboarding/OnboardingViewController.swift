@@ -18,10 +18,10 @@ final class OnboardingViewController: UIPageViewController {
     private lazy var button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .yaBlack
+        button.backgroundColor = .black
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.setTitle("onboardingVC_button".localized, for: .normal)
-        button.setTitleColor(.yaWhite, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16
         button.addTarget(nil, action: #selector(didTapButton), for: .touchUpInside)
         return button
