@@ -25,6 +25,8 @@
 		84811F4F2B0D14EC00C396F3 /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F4E2B0D14EC00C396F3 /* TrackerCategoryStore.swift */; };
 		84811F512B0D14F900C396F3 /* TrackerRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84811F502B0D14F900C396F3 /* TrackerRecordStore.swift */; };
 		848F90832B2F566B000110C2 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 848F90822B2F566B000110C2 /* SnapshotTesting */; };
+		848F90852B320758000110C2 /* GradientConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F90842B320758000110C2 /* GradientConfigure.swift */; };
+		848F90872B320BCA000110C2 /* StatisticViewSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F90862B320BCA000110C2 /* StatisticViewSetting.swift */; };
 		84903CDB2B0FED9F0032B773 /* UIColorConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84903CDA2B0FED9F0032B773 /* UIColorConvert.swift */; };
 		84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B42AEE64A100DD8B62 /* AppDelegate.swift */; };
 		84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C193B62AEE64A100DD8B62 /* SceneDelegate.swift */; };
@@ -91,6 +93,8 @@
 		84811F4E2B0D14EC00C396F3 /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
 		84811F502B0D14F900C396F3 /* TrackerRecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordStore.swift; sourceTree = "<group>"; };
 		848F907F2B2F547A000110C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		848F90842B320758000110C2 /* GradientConfigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientConfigure.swift; sourceTree = "<group>"; };
+		848F90862B320BCA000110C2 /* StatisticViewSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewSetting.swift; sourceTree = "<group>"; };
 		84903CDA2B0FED9F0032B773 /* UIColorConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorConvert.swift; sourceTree = "<group>"; };
 		84C193B12AEE64A100DD8B62 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C193B42AEE64A100DD8B62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 				848106872B25D797004BCF0E /* String + Extension.swift */,
 				84811F232B00F2B000C396F3 /* CellSelectionProtocol.swift */,
 				84903CDA2B0FED9F0032B773 /* UIColorConvert.swift */,
+				848F90842B320758000110C2 /* GradientConfigure.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 				84CBCD902B1B51B500554884 /* OnboardingSinglePageViewController.swift */,
 				84C2BF392AF7FBA90084CDE9 /* TextFieldSetting.swift */,
 				84C2BF3D2AF80A0C0084CDE9 /* CellBackgroundSetting.swift */,
+				848F90862B320BCA000110C2 /* StatisticViewSetting.swift */,
 			);
 			path = "Elements Setting";
 			sourceTree = "<group>";
@@ -365,7 +371,6 @@
 				0DF0FEB732AECD50F9BD6A9A /* Pods-TrackerTests.debug.xcconfig */,
 				DF984F81E7C3508BF31CE500 /* Pods-TrackerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -582,7 +587,9 @@
 				84811F4F2B0D14EC00C396F3 /* TrackerCategoryStore.swift in Sources */,
 				84811F222B00E52700C396F3 /* ColorCell.swift in Sources */,
 				84CBCD8F2B1B4EE400554884 /* OnboardingViewController.swift in Sources */,
+				848F90852B320758000110C2 /* GradientConfigure.swift in Sources */,
 				84903CDB2B0FED9F0032B773 /* UIColorConvert.swift in Sources */,
+				848F90872B320BCA000110C2 /* StatisticViewSetting.swift in Sources */,
 				84811F1E2AFD696D00C396F3 /* UIStackView + Extension.swift in Sources */,
 				84C193B52AEE64A100DD8B62 /* AppDelegate.swift in Sources */,
 				84C193B72AEE64A100DD8B62 /* SceneDelegate.swift in Sources */,
@@ -730,7 +737,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -793,7 +800,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

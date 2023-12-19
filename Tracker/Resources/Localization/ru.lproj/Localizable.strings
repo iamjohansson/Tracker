@@ -12,6 +12,7 @@
 // StatisticViewController
 "statisticVC_title" = "Статистика";
 "statisticVC_placeholderText" = "Анализировать пока нечего";
+"statisticVC_trackersCompleted" = "Трекеров завершено";
 
 // CreatingTrackerViewController
 "creatingVC_habitButton" = "Привычка";
