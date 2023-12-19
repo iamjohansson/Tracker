@@ -1,7 +1,9 @@
 import UIKit
 
 final class StatisticViewController: UIViewController {
-    
+
+    var statisticUpdate: (([TrackerRecord]) -> Void)?
+
     // MARK: - Elements
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -24,6 +26,12 @@ final class StatisticViewController: UIViewController {
     // MARK: - Properties
     private let trackersCompleted = StatisticViewSetting(name: "statisticVC_trackersCompleted".localized)
     private let trackerStore = TrackerStore()
+    private let trackerRecordStore = TrackerRecordStore()
+    private var trackerRecord: [TrackerRecord] = [] {
+        didSet {
+            statisticUpdate?(trackerRecord)
+        }
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -32,16 +40,36 @@ final class StatisticViewController: UIViewController {
         addSubView()
         applyConstraint()
         statisticPlaceholder.configure(name: "cryPlaceholder", text: "statisticVC_placeholderText".localized)
-        placeholderAndStackViewHiddenCheck()
+        statisticUpdate = { [weak self] trackers in
+            guard let self else { return }
+            self.placeholderAndStackViewHiddenCheck()
+            self.updateValue(with: trackers.count)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTrackerRecord()
     }
     
     // MARK: - Methods
-    
     private func placeholderAndStackViewHiddenCheck() {
         let isHidden = trackerStore.trackersCount == 0
         statisticPlaceholder.isHidden = !isHidden
         statisticStackView.isHidden = isHidden
     }
+    
+    private func updateTrackerRecord() {
+        guard
+            let trackerRecord = try? trackerRecordStore.takeCompletedTrackersForStatistic()
+        else { return }
+        self.trackerRecord = trackerRecord
+    }
+    
+    private func updateValue(with value: Int) {
+        trackersCompleted.config(name: "statisticVC_trackersCompleted".localized, value: value)
+    }
+    
     
     // MARK: - Layout & Setting
     private func addSubView() {

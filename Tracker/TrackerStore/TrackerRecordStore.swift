@@ -61,6 +61,13 @@ final class TrackerRecordStore: NSObject {
         delegate?.didUpdateRecord(records: completedTrackers)
     }
     
+    func takeCompletedTrackersForStatistic() throws -> [TrackerRecord] {
+        let request = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        let recordFetch = try context.fetch(request)
+        let record = try recordFetch.map { try createRecord(from: $0) }
+        return record
+    }
+    
     private func createRecord(from data: TrackerRecordCoreData) throws -> TrackerRecord {
         guard let stringID = data.recordId,
               let id = UUID(uuidString: stringID),
