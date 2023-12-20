@@ -8,10 +8,12 @@ protocol TrackerStoreDelegate: AnyObject {
 protocol TrackerStoreProtocol {
     var trackersCount: Int { get }
     var numberOfSections: Int { get }
+    var delegate: TrackerStoreDelegate? { get set }
     func numberOfRowsInSection(_ section: Int) -> Int
     func object(at indexPath: IndexPath) -> Tracker?
     func addTracker(tracker: Tracker, category: TrackerCategory) throws
     func headerInSection(_ section: Int) -> String?
+    func currentlyTrackers(date: Date, searchString: String) throws
 }
 
 final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {

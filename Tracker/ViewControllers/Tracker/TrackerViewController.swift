@@ -73,7 +73,7 @@ final class TrackerViewController: UIViewController {
     private var categories = [TrackerCategory]()
     private var completedTrackers: Set<TrackerRecord> = []
     private var currentDate = Date()
-    private let trackerStore = TrackerStore()
+    private var trackerStore: TrackerStoreProtocol
     private let trackerCategoryStore = TrackerCategoryStore()
     private let trackerRecordStore = TrackerRecordStore()
     private var searchText = "" {
@@ -87,6 +87,15 @@ final class TrackerViewController: UIViewController {
         rightInset: 16,
         cellSpacing: 9)
     
+    // MARK: - Initializer
+    init(trackerStore: TrackerStoreProtocol) {
+        self.trackerStore = trackerStore
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -1,12 +1,23 @@
-import SnapshotTesting
 import XCTest
+import SnapshotTesting
 @testable import Tracker
 
-class TrackerViewControllerTests: XCTestCase {
-    
-    func testTrackerViewController() {
-        let vc = TrackerViewController()
+final class TrackerTests: XCTestCase {
         
-        assertSnapshot(of: vc, as: .image)
+    func testTrackerViewControllerLight() {
+        let trackerStore = TrackerTestStub()
+        let vc = TrackerViewController(trackerStore: trackerStore)
+        
+        let record = false
+        assertSnapshot(of: vc, as: .image(traits: UITraitCollection(userInterfaceStyle: .light)), record: record)
+    }
+    
+    func testTrackerViewControllerDark() {
+        let trackerStore = TrackerTestStub()
+        let vc = TrackerViewController(trackerStore: trackerStore)
+        
+        let record = false
+        assertSnapshot(of: vc, as: .image(traits: UITraitCollection(userInterfaceStyle: .dark)), record: record)
     }
 }
+
