@@ -2,17 +2,19 @@
 import Foundation
 
 final class TrackerTestStub: TrackerStoreProtocol {
-    
     var trackersCount: Int = 2
     var numberOfSections: Int = 1
     var delegate: TrackerStoreDelegate?
-    private let trackersBundle: [Tracker] = [
+    private static let category = TrackerCategory(name: "Веселье")
+    private static let trackersBundle: [Tracker] = [
             Tracker(
                 name: "Жесткий кодинг",
                 color: .trackerColors[0],
                 emoji: "🏓",
                 sked: [.monday, .tuesday, .wednesday, .thursday, .friday],
-                daysCount: 150
+                daysCount: 150,
+                attach: false,
+                category: category
             )
         ]
     
@@ -21,7 +23,7 @@ final class TrackerTestStub: TrackerStoreProtocol {
     }
     
     func object(at indexPath: IndexPath) -> Tracker? {
-        let trackers = trackersBundle[indexPath.row]
+        let trackers = TrackerTestStub.trackersBundle[indexPath.row]
         return trackers
     }
     
@@ -29,11 +31,19 @@ final class TrackerTestStub: TrackerStoreProtocol {
     }
     
     func headerInSection(_ section: Int) -> String? {
-        return "Веселье"
+        return TrackerTestStub.category.name
     }
     
     func currentlyTrackers(date: Date, searchString: String) throws {
     }
     
+    func deleteTracker(tracker: Tracker) throws {
+    }
+    
+    func editTracker(tracker: Tracker, data: Tracker.Data) throws {
+    }
+    
+    func turnAttach(tracker: Tracker) throws {
+    }
     
 }

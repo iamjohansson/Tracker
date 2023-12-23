@@ -8,6 +8,9 @@
 "trackerVC_alertTitle" = "Сегодня %@";
 "trackerVC_alertMessage" = "Нельзя выполнить действие %@";
 "trackerVC_alertActionTitle" = "Понятно";
+"trackerVC_alertActionPin" = "Закрепить";
+"trackerVC_alertActionUnPin" = "Открепить";
+"trackerVC_alertMessage" = "Уверены что хотите удалить трекер?";
 
 // StatisticViewController
 "statisticVC_title" = "Статистика";
@@ -31,6 +34,7 @@
 "settingTrackerVC_skedParamLabel" = "Расписание";
 "settingTrackerVC_emojiTitle" = "Emoji";
 "settingTrackerVC_colorTitle" = "Цвет";
+"settingTrackerVC_editTrackerTitle" = "Редактирование привычки";
 
 // CategoryViewController
 "categoryVC_addCategoryButton" = "Добавить категорию";
@@ -49,6 +53,9 @@
 "onboardingVC_firstPageText" = "Отслеживайте только то, что хотите";
 "onboardingVC_secondPageText" = "Даже если это не литры воды и йога";
 "onboardingVC_button" = "Вот это технологии!";
+
+// TrackerStore
+"trackerStore_attach" = "Закрепленные";
 
 // WeekDays
 "monday" = "Понедельник";

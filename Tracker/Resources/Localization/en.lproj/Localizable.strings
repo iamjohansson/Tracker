@@ -8,6 +8,9 @@
 "trackerVC_alertTitle" = "Today is %@";
 "trackerVC_alertMessage" = "Action cannot be completed on %@";
 "trackerVC_alertActionTitle" = "Ok";
+"trackerVC_alertActionPin" = "Pin";
+"trackerVC_alertActionUnPin" = "Unpin";
+"trackerVC_alertMessage" = "Are you sure you want to delete the tracker?";
 
 // StatisticViewController
 "statisticVC_title" = "Statistics";
@@ -31,6 +34,7 @@
 "settingTrackerVC_skedParamLabel" = "Schedule";
 "settingTrackerVC_emojiTitle" = "Emoji";
 "settingTrackerVC_colorTitle" = "Color";
+"settingTrackerVC_editTrackerTitle" = "Edit habit";
 
 // CategoryViewController
 "categoryVC_addCategoryButton" = "Add category";
@@ -49,6 +53,9 @@
 "onboardingVC_firstPageText" = "Track only what you want";
 "onboardingVC_secondPageText" = "Even if it's not liters of water and yoga";
 "onboardingVC_button" = "These are the technologies!";
+
+// TrackerStore
+"trackerStore_attach" = "Pinned";
 
 // WeekDays
 "monday" = "Monday";

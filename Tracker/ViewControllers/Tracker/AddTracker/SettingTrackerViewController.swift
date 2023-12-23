@@ -3,6 +3,7 @@ import UIKit
 protocol SettingTrackerViewControllerDelegate: AnyObject {
     func didTapCancelButton()
     func didTapCreateButton(category: TrackerCategory, tracker: Tracker)
+    func didUpdateTracker(with data: Tracker.Data)
 }
 
 final class SettingTrackerViewController: UIViewController {
@@ -107,8 +108,9 @@ final class SettingTrackerViewController: UIViewController {
     // MARK: - Properties
     weak var delegate: SettingTrackerViewControllerDelegate?
     private let version: CreatingTrackerViewController.TrackerVersion
+    private let setAction: SetAction
     private let trackerCategoryStore = TrackerCategoryStore()
-    private var data: Tracker.Track {
+    private var data: Tracker.Data {
         didSet {
             checkButtonValidation()
         }
@@ -148,12 +150,6 @@ final class SettingTrackerViewController: UIViewController {
         return short.joined(separator: ", ")
     }
     
-    private lazy var category: TrackerCategory? = nil {
-        didSet {
-            checkButtonValidation()
-        }
-    }
-    
     private let parametres = [
         "settingTrackerVC_categoryParamLabel".localized,
         "settingTrackerVC_skedParamLabel".localized
@@ -173,9 +169,10 @@ final class SettingTrackerViewController: UIViewController {
     private var optionsTopConstraint: NSLayoutConstraint?
     
     // MARK: - Initializers
-    init(version: CreatingTrackerViewController.TrackerVersion, data: Tracker.Track = Tracker.Track()) {
+    init(version: CreatingTrackerViewController.TrackerVersion,actionType: SettingTrackerViewController.SetAction, data: Tracker.Data?) {
         self.version = version
-        self.data = data
+        self.setAction = actionType
+        self.data = data ?? Tracker.Data()
         super.init(nibName: nil, bundle: nil)
         
         switch version {
@@ -239,7 +236,7 @@ final class SettingTrackerViewController: UIViewController {
             nameTracker.heightAnchor.constraint(equalToConstant: 75),
             limitMessage.centerXAnchor.constraint(equalTo: nameTracker.centerXAnchor),
             limitMessage.topAnchor.constraint(equalTo: nameTracker.bottomAnchor, constant: 8),
-            optionsTableView.heightAnchor.constraint(equalToConstant: title == "creatingVC_HabitTitle".localized ? 150 : 75),
+            optionsTableView.heightAnchor.constraint(equalToConstant: data.sked != nil ? 150 : 75),
             optionsTableView.leadingAnchor.constraint(equalTo: nameTracker.leadingAnchor),
             optionsTableView.trailingAnchor.constraint(equalTo: nameTracker.trailingAnchor),
             emojiCollectionView.topAnchor.constraint(equalTo: optionsTableView.bottomAnchor, constant: 32),
@@ -259,11 +256,16 @@ final class SettingTrackerViewController: UIViewController {
     }
     
     private func setTitle() {
-        switch version {
-        case .habit:
-            title = "creatingVC_HabitTitle".localized
-        case .event:
-            title = "creatingVC_IrregularTitle".localized
+        switch setAction {
+        case .add:
+            switch version {
+            case .habit:
+                title = "creatingVC_HabitTitle".localized
+            case .event:
+                title = "creatingVC_IrregularTitle".localized
+            }
+        case .edit:
+            title = "settingTrackerVC_editTrackerTitle".localized
         }
     }
     
@@ -295,11 +297,12 @@ extension SettingTrackerViewController {
     }
     
     @objc private func didTapCreateButton() {
-        guard let category = category,
-              let emoji = data.emoji,
-              let color = data.color else { return }
-        let createNewTracker = Tracker(name: data.name, color: color, emoji: emoji, sked: data.sked, daysCount: 0)
-        delegate?.didTapCreateButton(category: category, tracker: createNewTracker)
+        switch setAction {
+        case .add:
+            addTracker()
+        case .edit:
+            editTracker()
+        }
     }
     
     private func checkButtonValidation() {
@@ -311,7 +314,7 @@ extension SettingTrackerViewController {
             buttonIsEnable = false
             return
         }
-        if category == nil {
+        if data.category == nil {
             buttonIsEnable = false
             return
         }
@@ -324,11 +327,25 @@ extension SettingTrackerViewController {
             return
         }
         if let sked = data.sked,
-            sked.isEmpty {
+           sked.isEmpty {
             buttonIsEnable = false
             return
         }
         buttonIsEnable = true
+    }
+    
+    private func addTracker() {
+        guard
+            let category = data.category,
+            let emoji = data.emoji,
+            let color = data.color
+        else { return }
+        let createNewTracker = Tracker(name: data.name, color: color, emoji: emoji, sked: data.sked, daysCount: 0, attach: false, category: category)
+        delegate?.didTapCreateButton(category: category, tracker: createNewTracker)
+    }
+    
+    private func editTracker() {
+        delegate?.didUpdateTracker(with: data)
     }
 }
 
@@ -346,10 +363,10 @@ extension SettingTrackerViewController: UITableViewDataSource {
         var position: CellBackgroundSetting.Position
         
         if data.sked == nil {
-            description = category?.name
+            description = data.category?.name
             position = .common
         } else {
-            description = indexPath.row == 0 ? category?.name : skedString
+            description = indexPath.row == 0 ? data.category?.name : skedString
             position = indexPath.row == 0 ? .top : .bottom
         }
         cell.configure(name: parametres[indexPath.row], description: description, position: position)
@@ -363,7 +380,7 @@ extension SettingTrackerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let categoryVC = CategoryViewController(category: category)
+            let categoryVC = CategoryViewController(category: data.category)
             categoryVC.delegate = self
             let navigationController = UINavigationController(rootViewController: categoryVC)
             present(navigationController, animated: true)
@@ -403,11 +420,22 @@ extension SettingTrackerViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiCell.identifier, for: indexPath) as? EmojiCell else {return UICollectionViewCell() }
             let emoji = emoji[indexPath.row]
             cell.configure(with: emoji)
+            if emoji == data.emoji {
+                cell.select()
+                emojiCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .bottom)
+            }
             return cell
         case colorCollectionView:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorCell.identifier, for: indexPath) as? ColorCell else { return UICollectionViewCell() }
             let color = trackerColors[indexPath.row]
             cell.configure(with: color)
+            if
+                let colorCD = data.color,
+                UIColorConvert.convertColorToString(color: color) ==
+                    UIColorConvert.convertColorToString(color: colorCD) {
+                cell.select()
+                colorCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .bottom)
+            }
             return cell
         default:
             return UICollectionViewCell()
@@ -487,7 +515,7 @@ extension SettingTrackerViewController: ScheduleViewControllerDelegate {
 
 extension SettingTrackerViewController: CategoryViewControllerDelegate {
     func didConfirm(category: TrackerCategory) {
-        self.category = category
+        data.category = category
         optionsTableView.reloadData()
         dismiss(animated: true)
     }
@@ -498,5 +526,12 @@ extension SettingTrackerViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTracker.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: - Enum Action
+extension SettingTrackerViewController {
+    enum SetAction {
+        case add, edit
     }
 }
