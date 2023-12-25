@@ -102,7 +102,10 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
             format: "%K == %@",
             #keyPath(TrackerCoreData.trackerId), id.uuidString)
         try fetchedResultsController.performFetch()
-        return fetchedResultsController.fetchedObjects?.first
+        guard let track = fetchedResultsController.fetchedObjects?.first else { throw TrackerError.decodeError }
+        fetchedResultsController.fetchRequest.predicate = nil
+        try fetchedResultsController.performFetch()
+        return track
     }
     
     // MARK: - FetchResultDelegate
