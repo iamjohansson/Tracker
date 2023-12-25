@@ -57,6 +57,13 @@
 // TrackerStore
 "trackerStore_attach" = "Закрепленные";
 
+// FilterViewController
+"filterVC_title" = "Фильтры";
+"filterVC_all" = "Все трекеры";
+"filterVC_today" = "Трекеры на сегодня";
+"filterVC_finished" = "Завершенные";
+"filterVC_unfinished" = "Не завершенные";
+
 // WeekDays
 "monday" = "Понедельник";
 "tuesday" = "Вторник";

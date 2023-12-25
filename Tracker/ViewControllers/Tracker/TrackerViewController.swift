@@ -79,6 +79,7 @@ final class TrackerViewController: UIViewController {
     private let trackerRecordStore = TrackerRecordStore()
     private let analyticsService = AnalyticsService()
     private var editTracker: Tracker?
+    private var currentFilter: Filter?
     private var searchText = "" {
         didSet {
             try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText)
@@ -201,7 +202,11 @@ extension TrackerViewController {
     
     @objc private func didTapFilterButton() {
         analyticsService.tapFilterButton()
-        //TODO: filter controller
+        let filterVC = FilterViewController(selectedFilter: currentFilter)
+        filterVC.delegate = self
+        let navigationController = UINavigationController(rootViewController: filterVC)
+        navigationController.modalPresentationStyle = .pageSheet
+        present(navigationController, animated: true)
     }
     
     private func isDateinPast(_ date: Date) -> Bool {
@@ -326,7 +331,7 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Extension Controller Delegate
 extension TrackerViewController: CreatingTrackerViewControllerDelegate,
-                                    SettingTrackerViewControllerDelegate {
+                                    SettingTrackerViewControllerDelegate, FilterViewControllerDelegate {
     func didUpdateTracker(with data: Tracker.Data) {
         guard let editTracker else { return }
         dismiss(animated: true)
@@ -348,6 +353,12 @@ extension TrackerViewController: CreatingTrackerViewControllerDelegate,
     func didCreateTracker(with version: CreatingTrackerViewController.TrackerVersion) {
         dismiss(animated: true)
         navigationToSettingTrackerVC(version: version, actionType: .add)
+    }
+    
+    func setFilter(filter: Filter) {
+        self.currentFilter = filter
+        
+        dismiss(animated: true)
     }
 }
 
@@ -386,8 +397,6 @@ extension TrackerViewController: TrackerStoreDelegate, TrackerRecordStoreDelegat
     func didUpdateRecord(records: Set<TrackerRecord>) {
         completedTrackers = records
     }
-    
-    
 }
 
 // MARK: - Extension Recognizer

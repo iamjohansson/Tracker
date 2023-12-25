@@ -57,6 +57,13 @@
 // TrackerStore
 "trackerStore_attach" = "Pinned";
 
+// FilterViewController
+"filterVC_title" = "Filters";
+"filterVC_all" = "All trackers";
+"filterVC_today" = "Trackers for today";
+"filterVC_finished" = "Completed";
+"filterVC_unfinished" = "Not completed";
+
 // WeekDays
 "monday" = "Monday";
 "tuesday" = "Tuesday";
