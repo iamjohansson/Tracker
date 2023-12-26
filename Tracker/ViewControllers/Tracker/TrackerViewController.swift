@@ -79,10 +79,10 @@ final class TrackerViewController: UIViewController {
     private let trackerRecordStore = TrackerRecordStore()
     private let analyticsService = AnalyticsService()
     private var editTracker: Tracker?
-    private var currentFilter: Filter?
+    private var currentFilter: Filter = .all
     private var searchText = "" {
         didSet {
-            try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText)
+            try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText, filter: currentFilter)
         }
     }
     private let geomentricParams = UICollectionView.GeometricParams(
@@ -112,7 +112,7 @@ final class TrackerViewController: UIViewController {
         placeholderCheckForEmpty()
         placeholderCheckForSearch()
         setupDelegates()
-        try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText)
+        try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText, filter: currentFilter)
         try? trackerRecordStore.takeCompletedTrackers(with: currentDate)
         showFilterButton()
     }
@@ -192,7 +192,7 @@ extension TrackerViewController {
         currentDate = sender.date
         execButtonIsEnableValue = isDateinPast(currentDate)
         do {
-            try trackerStore.currentlyTrackers(date: currentDate, searchString: searchText)
+            try trackerStore.currentlyTrackers(date: currentDate, searchString: searchText, filter: currentFilter)
             try trackerRecordStore.takeCompletedTrackers(with: currentDate)
         } catch {
             print(TrackerError.decodeError)
@@ -224,7 +224,7 @@ extension TrackerViewController {
     }
     
     private func showFilterButton() {
-        if trackerStore.trackersCount == 0 {
+        if trackerStore.trackersCount == 0 && currentFilter == .all  {
             filterButton.isHidden = true
         } else {
             filterButton.isHidden = false
@@ -249,7 +249,7 @@ extension TrackerViewController: TrackerCellDelegate {
                 cell.changeImageButton(active: false)
                 cell.addOrSubtrack(value: false)
             } else {
-                let trackerRecord = TrackerRecord(date: currentDate, trackerId: tracker.id)
+                let trackerRecord = TrackerRecord(date: currentDate, trackerId: tracker.id, complited: true)
                 try? trackerRecordStore.add(trackerRecord)
                 cell.changeImageButton(active: true)
                 cell.addOrSubtrack(value: true)
@@ -357,7 +357,29 @@ extension TrackerViewController: CreatingTrackerViewControllerDelegate,
     
     func setFilter(filter: Filter) {
         self.currentFilter = filter
-        
+        switch currentFilter {
+        case .all:
+            try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText, filter: .all)
+            try? trackerRecordStore.takeCompletedTrackers(with: currentDate)
+        case .today:
+            if datePicker.date != Date() {
+                datePicker.setDate(Date(), animated: true)
+                do {
+                    try trackerStore.currentlyTrackers(date: Date(), searchString: searchText, filter: .today)
+                    try trackerRecordStore.takeCompletedTrackers(with: Date())
+                    currentDate = Date()
+                } catch {
+                    print(TrackerError.decodeError)
+                }
+                collectionView.reloadData()
+            }
+        case .finished:
+            try? trackerStore.takeTrackersForFilter(date: currentDate)
+            try? trackerRecordStore.takeCompletedTrackers(with: currentDate)
+        case .unfinished:
+            try? trackerStore.currentlyTrackers(date: currentDate, searchString: searchText, filter: currentFilter)
+            try? trackerRecordStore.takeCompletedTrackers(with: currentDate)
+        }
         dismiss(animated: true)
     }
 }

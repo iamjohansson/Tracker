@@ -43,6 +43,7 @@ final class TrackerRecordStore: NSObject {
         recordData.recordId = record.id.uuidString
         recordData.date = record.date
         recordData.tracker = trackerData
+        recordData.completed = record.complited
         try context.save()
         completedTrackers.insert(record)
         delegate?.didUpdateRecord(records: completedTrackers)
@@ -75,6 +76,6 @@ final class TrackerRecordStore: NSObject {
               let trackerData = data.tracker,
               let tracker = try? trackerStore.createTracker(from: trackerData)
         else { throw TrackerError.decodeError }
-        return TrackerRecord(id: id, date: date, trackerId: tracker.id)
+        return TrackerRecord(id: id, date: date, trackerId: tracker.id, complited: data.completed)
     }
 }

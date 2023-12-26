@@ -13,10 +13,11 @@ protocol TrackerStoreProtocol {
     func object(at indexPath: IndexPath) -> Tracker?
     func addTracker(tracker: Tracker, category: TrackerCategory) throws
     func headerInSection(_ section: Int) -> String?
-    func currentlyTrackers(date: Date, searchString: String) throws
+    func currentlyTrackers(date: Date, searchString: String, filter: Filter) throws
     func deleteTracker(tracker: Tracker) throws
     func editTracker(tracker: Tracker, data: Tracker.Data) throws
     func turnAttach(tracker: Tracker) throws
+    func takeTrackersForFilter(date: Date) throws
 }
 
 final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
@@ -67,7 +68,7 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
         return Tracker(id: id, name: name, color: color!, emoji: emoji, sked: sked, daysCount: daysCount.count, attach: tracker.attach, category: category)
     }
     
-    func currentlyTrackers(date: Date, searchString: String) throws {
+    func currentlyTrackers(date: Date, searchString: String, filter: Filter) throws {
         
         let day = Calendar.current.component(.weekday, from: date)
         let weekdayIndex = day > 1 ? day - 2 : day + 5
@@ -92,6 +93,11 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
                 #keyPath(TrackerCoreData.name), searchString
             ))
         }
+        
+        if filter == .unfinished {
+            fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "(record.date == nil OR record.date != %@) AND (record.completed == %@ OR record.completed == nil)", date as NSDate, NSNumber(value: false))
+        }
+        
         fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         try fetchedResultsController.performFetch()
         delegate?.didUpdate()
@@ -106,6 +112,20 @@ final class TrackerStore: NSObject, NSFetchedResultsControllerDelegate {
         fetchedResultsController.fetchRequest.predicate = nil
         try fetchedResultsController.performFetch()
         return track
+    }
+    
+    func takeTrackersForFilter(date: Date) throws {
+        let predicateFormat = "record.date CONTAINS %@"
+        let request = TrackerCoreData.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate(format: predicateFormat, date as NSDate)
+        fetchedResultsController.fetchRequest.predicate = request.predicate
+        do {
+            try fetchedResultsController.performFetch()
+            delegate?.didUpdate()
+        } catch {
+            print("Error fetching completed trackers: \(error.localizedDescription)")
+        }
     }
     
     // MARK: - FetchResultDelegate
@@ -125,12 +145,12 @@ extension TrackerStore: TrackerStoreProtocol {
     
     private var isAttachTracker: [Tracker] {
         return fetchedResultsController.fetchedObjects?
-                .compactMap { try? createTracker(from: $0) }
-                .filter({ $0.attach }) ?? []
+            .compactMap { try? createTracker(from: $0) }
+            .filter({ $0.attach }) ?? []
     }
     
     private var sections: [[Tracker]] {
-        guard 
+        guard
             let sectionsData = fetchedResultsController.sections
         else { return [] }
         
@@ -183,7 +203,7 @@ extension TrackerStore: TrackerStoreProtocol {
         if !isAttachTracker.isEmpty && section == 0 {
             return "trackerStore_attach".localized
         }
-        guard 
+        guard
             let category = sections[section].first?.category
         else  { return nil }
         return category.name
