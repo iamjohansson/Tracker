@@ -10,7 +10,7 @@
 "trackerVC_alertActionTitle" = "Ok";
 "trackerVC_alertActionPin" = "Pin";
 "trackerVC_alertActionUnPin" = "Unpin";
-"trackerVC_alertMessage" = "Are you sure you want to delete the tracker?";
+"trackerVC_alertActionMessage" = "Are you sure you want to delete the tracker?";
 
 // StatisticViewController
 "statisticVC_title" = "Statistics";

@@ -84,14 +84,6 @@ final class TrackerCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        tracker = nil
-        daysCount = 0
-        execButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        execButton.layer.opacity = 1
-    }
-    
     func configure(with tracker: Tracker, days: Int, active: Bool, interaction: UIInteraction) {
         self.tracker = tracker
         self.daysCount = days

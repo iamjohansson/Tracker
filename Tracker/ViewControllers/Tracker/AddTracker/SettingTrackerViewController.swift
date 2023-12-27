@@ -266,6 +266,7 @@ final class SettingTrackerViewController: UIViewController {
             }
         case .edit:
             title = "settingTrackerVC_editTrackerTitle".localized
+            nameTracker.text = data.name
         }
     }
     

@@ -60,6 +60,8 @@
 		84CBCD9C2B1C998C00554884 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD9B2B1C998C00554884 /* CategoryViewModel.swift */; };
 		84CBCD9E2B1E531400554884 /* WindowNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCD9D2B1E531400554884 /* WindowNavigationViewController.swift */; };
 		84CBCDA12B1E537700554884 /* UserDefaultsBacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCDA02B1E537700554884 /* UserDefaultsBacked.swift */; };
+		84E966082B3CACBF007A1146 /* CGPoint + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E966072B3CACBF007A1146 /* CGPoint + Extension.swift */; };
+		84E9660A2B3CAE0E007A1146 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E966092B3CAE0E007A1146 /* Filter.swift */; };
 		9C84A3F46D0455FF1540F144 /* Pods_TrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B238672DE24680AFD8EC16 /* Pods_TrackerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +134,8 @@
 		84CBCD9B2B1C998C00554884 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		84CBCD9D2B1E531400554884 /* WindowNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowNavigationViewController.swift; sourceTree = "<group>"; };
 		84CBCDA02B1E537700554884 /* UserDefaultsBacked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsBacked.swift; sourceTree = "<group>"; };
+		84E966072B3CACBF007A1146 /* CGPoint + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint + Extension.swift"; sourceTree = "<group>"; };
+		84E966092B3CAE0E007A1146 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		C4B238672DE24680AFD8EC16 /* Pods_TrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2DD0B79E7EB9A2B852C2AF4 /* Pods-Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Tracker/Pods-Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 		DF984F81E7C3508BF31CE500 /* Pods-TrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackerTests.release.xcconfig"; path = "Target Support Files/Pods-TrackerTests/Pods-TrackerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 				84811F232B00F2B000C396F3 /* CellSelectionProtocol.swift */,
 				84903CDA2B0FED9F0032B773 /* UIColorConvert.swift */,
 				848F90842B320758000110C2 /* GradientConfigure.swift */,
+				84E966072B3CACBF007A1146 /* CGPoint + Extension.swift */,
 				84651F102B37287D00290145 /* AnalyticsService.swift */,
 			);
 			path = Helpers;
@@ -306,6 +311,7 @@
 				84C1941E2AF2CCE100DD8B62 /* TrackerCategory.swift */,
 				84C194202AF2CDED00DD8B62 /* TrackerRecord.swift */,
 				84C1941C2AF2CA4400DD8B62 /* WeekDays.swift */,
+				84E966092B3CAE0E007A1146 /* Filter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -596,6 +602,7 @@
 				84C193B92AEE64A100DD8B62 /* TabBarViewController.swift in Sources */,
 				84811F4D2B0D14DD00C396F3 /* TrackerStore.swift in Sources */,
 				846A49FE2AFC0000007B1204 /* TrackerCategoryHeader.swift in Sources */,
+				84E9660A2B3CAE0E007A1146 /* Filter.swift in Sources */,
 				84C193CD2AEEABF500DD8B62 /* UIColor + Extension.swift in Sources */,
 				84CBCD9C2B1C998C00554884 /* CategoryViewModel.swift in Sources */,
 				84C194262AF692D600DD8B62 /* TrackerCell.swift in Sources */,
@@ -620,6 +627,7 @@
 				84CBCD9E2B1E531400554884 /* WindowNavigationViewController.swift in Sources */,
 				84C194282AF6A97800DD8B62 /* CreatingTrackerViewController.swift in Sources */,
 				84811F202B00E1D400C396F3 /* EmojiCell.swift in Sources */,
+				84E966082B3CACBF007A1146 /* CGPoint + Extension.swift in Sources */,
 				84C1941B2AF2C82700DD8B62 /* Tracker.swift in Sources */,
 				848106882B25D797004BCF0E /* String + Extension.swift in Sources */,
 				84CBCD942B1B6C1900554884 /* CategoryCell.swift in Sources */,

@@ -34,7 +34,10 @@ final class TrackerTestStub: TrackerStoreProtocol {
         return TrackerTestStub.category.name
     }
     
-    func currentlyTrackers(date: Date, searchString: String) throws {
+    func currentlyTrackers(date: Date, searchString: String, filter: Filter) throws {
+    }
+    
+    func takeTrackersForFilter(date: Date) throws {
     }
     
     func deleteTracker(tracker: Tracker) throws {

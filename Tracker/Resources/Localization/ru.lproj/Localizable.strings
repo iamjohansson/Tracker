@@ -10,7 +10,7 @@
 "trackerVC_alertActionTitle" = "Понятно";
 "trackerVC_alertActionPin" = "Закрепить";
 "trackerVC_alertActionUnPin" = "Открепить";
-"trackerVC_alertMessage" = "Уверены что хотите удалить трекер?";
+"trackerVC_alertActionMessage" = "Уверены что хотите удалить трекер?";
 
 // StatisticViewController
 "statisticVC_title" = "Статистика";

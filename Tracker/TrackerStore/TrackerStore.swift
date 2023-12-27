@@ -213,6 +213,13 @@ extension TrackerStore: TrackerStoreProtocol {
         guard
             let trackerWillBeDelete = try takeTracker(for: tracker.id)
         else { throw TrackerError.decodeError }
+        
+        if let records = trackerWillBeDelete.record {
+            for record in records {
+                guard let record = record as? TrackerRecordCoreData else { continue }
+                context.delete(record)
+            }
+        }
         context.delete(trackerWillBeDelete)
         try context.save()
     }

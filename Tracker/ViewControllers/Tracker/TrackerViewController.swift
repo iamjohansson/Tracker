@@ -224,11 +224,7 @@ extension TrackerViewController {
     }
     
     private func showFilterButton() {
-        if trackerStore.trackersCount == 0 && currentFilter == .all  {
-            filterButton.isHidden = true
-        } else {
-            filterButton.isHidden = false
-        }
+        filterButton.isHidden = trackerStore.trackersCount == 0 && currentFilter == .all
     }
     
     private func navigationToSettingTrackerVC(version: CreatingTrackerViewController.TrackerVersion, actionType: SettingTrackerViewController.SetAction, data: Tracker.Data? = nil) {
@@ -244,7 +240,8 @@ extension TrackerViewController {
 extension TrackerViewController: TrackerCellDelegate {
     func didTapExecButton(cell: TrackerCell, with tracker: Tracker) {
         if execButtonIsEnableValue == true {
-            if let recordingTracker = completedTrackers.first(where: { $0.date == currentDate && $0.trackerId == tracker.id }) {
+            analyticsService.tapTrackerDayButton()
+            if let recordingTracker = completedTrackers.first(where: { $0.date == currentDate && $0.trackerId == tracker.id && $0.complited == true }) {
                 try? trackerRecordStore.delete(recordingTracker)
                 cell.changeImageButton(active: false)
                 cell.addOrSubtrack(value: false)
@@ -286,13 +283,12 @@ extension TrackerViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell,
               let tracker = trackerStore.object(at: indexPath)
         else { return UICollectionViewCell() }
-        let active = completedTrackers.contains { $0.date == currentDate && $0.trackerId == tracker.id }
+        let active = completedTrackers.contains { $0.date == currentDate && $0.trackerId == tracker.id && $0.complited == true }
         let interaction = UIContextMenuInteraction(delegate: self)
         cell.configure(with: tracker, days: tracker.daysCount, active: active, interaction: interaction)
         cell.delegate = self
         return cell
     }
-    
 }
 
 // MARK: - Extension DelegateFlowLayout
@@ -458,11 +454,11 @@ extension TrackerViewController: UIContextMenuInteractionDelegate {
                     self?.analyticsService.editTracker()
                 },
                 UIAction(title: "categoryVC_alertActionDelete".localized, attributes: .destructive) { [weak self] _ in
-                    let alert = UIAlertController(title: nil, message: "trackerVC_alertMessage".localized, preferredStyle: .actionSheet)
+                    let alert = UIAlertController(title: nil, message: "trackerVC_alertActionMessage".localized, preferredStyle: .actionSheet)
                     let cancel = UIAlertAction(title: "categoryVC_alertActionCancel".localized, style: .cancel)
                     let delete = UIAlertAction(title: "categoryVC_alertActionDelete".localized, style: .destructive) { [weak self] _ in
-                        guard let self else { return }
-                        try? trackerStore.deleteTracker(tracker: tracker)
+                        guard let self = self else { return }
+                        try? self.trackerStore.deleteTracker(tracker: tracker)
                         self.analyticsService.deleteTracker()
                     }
                     alert.addAction(cancel)

@@ -29,7 +29,7 @@ extension AnalyticsService {
     }
     
     func tapPlusButton() {
-        report(event: .click, parameters: ["screen" : "Main", "item" : Items.add_track.rawValue])
+        report(event: .click, parameters: ["screen" : "Main", "item" : Items.addTrack.rawValue])
     }
     
     func tapFilterButton() {
@@ -57,7 +57,7 @@ enum Events: String, CaseIterable {
 }
 
 enum Items: String, CaseIterable {
-    case add_track = "add_track"
+    case addTrack = "add_track"
     case track = "track"
     case filter = "filter"
     case edit = "edit"
