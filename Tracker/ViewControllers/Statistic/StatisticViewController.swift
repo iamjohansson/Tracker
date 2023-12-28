@@ -29,7 +29,8 @@ final class StatisticViewController: UIViewController {
     private let trackerRecordStore = TrackerRecordStore()
     private var trackerRecord: [TrackerRecord] = [] {
         didSet {
-            statisticUpdate?(trackerRecord)
+            let uniqueTrackers = Set(trackerRecord)
+            statisticUpdate?(Array(uniqueTrackers))
         }
     }
     

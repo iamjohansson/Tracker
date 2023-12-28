@@ -65,8 +65,20 @@ final class TrackerRecordStore: NSObject {
     func takeCompletedTrackersForStatistic() throws -> [TrackerRecord] {
         let request = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
         let recordFetch = try context.fetch(request)
-        let record = try recordFetch.map { try createRecord(from: $0) }
-        return record
+        
+        var uniqueTrackerIds = Set<UUID>()
+        var uniqueTrackers = [TrackerRecord]()
+        
+        for coreDataRecord in recordFetch {
+            guard let record = try? createRecord(from: coreDataRecord) else {
+                continue
+            }
+            if !uniqueTrackerIds.contains(record.trackerId) {
+                uniqueTrackerIds.insert(record.trackerId)
+                uniqueTrackers.append(record)
+            }
+        }
+        return uniqueTrackers
     }
     
     private func createRecord(from data: TrackerRecordCoreData) throws -> TrackerRecord {
