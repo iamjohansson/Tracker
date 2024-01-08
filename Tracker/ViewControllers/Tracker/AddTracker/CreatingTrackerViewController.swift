@@ -11,7 +11,7 @@ final class CreatingTrackerViewController: UIViewController {
         let habitButton = UIButton()
         habitButton.translatesAutoresizingMaskIntoConstraints = false
         habitButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        habitButton.setTitle("Привычка", for: .normal)
+        habitButton.setTitle("creatingVC_habitButton".localized, for: .normal)
         habitButton.setTitleColor(.yaWhite, for: .normal)
         habitButton.backgroundColor = .yaBlack
         habitButton.layer.cornerRadius = 16
@@ -23,7 +23,7 @@ final class CreatingTrackerViewController: UIViewController {
         let eventButton = UIButton()
         eventButton.translatesAutoresizingMaskIntoConstraints = false
         eventButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        eventButton.setTitle("Нерегулярное событие", for: .normal) //в фигме не по русски написано как-то)
+        eventButton.setTitle("creatingVC_irregularButton".localized, for: .normal)
         eventButton.setTitleColor(.yaWhite, for: .normal)
         eventButton.backgroundColor = .yaBlack
         eventButton.layer.cornerRadius = 16
@@ -45,7 +45,7 @@ final class CreatingTrackerViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Создание трекера"
+        title = "creatingVC_title".localized
         view.backgroundColor = .yaWhite
         
         addSubViews()
@@ -78,12 +78,12 @@ final class CreatingTrackerViewController: UIViewController {
 // MARK: - Extension - Actions
 private extension CreatingTrackerViewController {
     @objc func didTapHabitButton() {
-        title = "Новая привычка"
+        title = "creatingVC_HabitTitle".localized
         delegate?.didCreateTracker(with: .habit)
     }
     
     @objc func didTapEventButton() {
-        title = "Новое нерегулярное событие"
+        title = "creatingVC_IrregularTitle".localized
         delegate?.didCreateTracker(with: .event)
     }
 }

@@ -31,4 +31,10 @@ extension UIColor {
         UIColor(named: "Color 17") ?? UIColor.cyan,
         UIColor(named: "Color 18") ?? UIColor.green
     ]
+    
+    // MARK: - Gradient Color
+    static var gradBlue: UIColor { UIColor(named: "grBlue") ?? UIColor.blue }
+    static var gradGreen: UIColor { UIColor(named: "grGreen") ?? UIColor.green }
+    static var gradRed: UIColor { UIColor(named: "grRed") ?? UIColor.red }
+    
 }
